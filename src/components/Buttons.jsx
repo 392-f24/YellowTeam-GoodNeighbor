@@ -1,7 +1,6 @@
 import { signInWithGoogle, signOut, useAuthState } from '../utilities/firebase';
 
 const SignInButton = () => (
-    // <button className="button" onClick={signInWithGoogle}>Sign in</button>
     <button type="button" class="btn btn-light" onClick={signInWithGoogle}>Sign in</button>
   );
   
