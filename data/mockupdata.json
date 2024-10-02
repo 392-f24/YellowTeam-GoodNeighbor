@@ -1,0 +1,119 @@
+{
+    "users_count": 3, 
+    "request_count": 5,
+    "users": {
+    "1": {
+      "location": "",
+      "photo_url": "",
+      "rate_count": 1,
+      "rate_score": 5,
+      "task_CBU": 0,
+      "task_CFU": 0,
+      "userid": 1,
+      "username": "Mcdonald"
+    },
+    "2": {
+        "location": "",
+        "photo_url": "",
+        "rate_count": 1,
+        "rate_score": 5,
+        "task_CBU": 0,
+        "task_CFU": 0,
+        "userid": 2,
+        "username": "Sarah"
+      },
+      "3": {
+        "location": "",
+        "photo_url": "",
+        "rate_count": 1,
+        "rate_score": 5,
+        "task_CBU": 0,
+        "task_CFU": 0,
+        "userid": 3,
+        "username": "John"
+      }
+      
+  },
+  
+  "requests": {
+    "1": {
+      "accept_status": false,
+      "accept_userid": -1,
+      "duration": 5,
+      "location": "",
+      "post_time": "2024-10-01T00:00:00Z",
+      "request_id": 1,
+      "request_text": "Could someone borrow me a hammer?",
+      "userid": 1,
+      "username": "Mcdonald"
+    },
+    "2": {
+        "accept_status": false,
+        "accept_userid": -1,
+        "duration": 15,
+        "location": "",
+        "post_time": "2024-10-02T09:30:00Z",
+        "request_id": 2,
+        "request_text": "Can anyone walk my dog tomorrow morning?",
+        "userid": 2,
+        "username": "Sarah"
+      },
+      "3": {
+        "accept_status": false,
+        "accept_userid": -1,
+        "duration": 60,
+        "location": "",
+        "post_time": "2024-10-03T14:00:00Z",
+        "request_id": 3,
+        "request_text": "Looking for help fixing my fence. Anyone available?",
+        "userid": 3,
+        "username": "John"
+      },
+      "4": {
+        "accept_status": false,
+        "accept_userid": -1,
+        "duration": 10,
+        "location": "",
+        "post_time": "2024-10-04T08:15:00Z",
+        "request_id": 4,
+        "request_text": "Can someone water my plants while I’m on vacation?",
+        "userid": 2,
+        "username": "Sarah"
+      },
+      "5": {
+        "accept_status": false,
+        "accept_userid": -1,
+        "duration": 45,
+        "location": "",
+        "post_time": "2024-10-05T17:45:00Z",
+        "request_id": 5,
+        "request_text": "I need help with assembling some furniture this weekend.",
+        "userid": 1,
+        "username": "Mcdonald"
+      }
+},
+
+"login_credentials": {
+    "example1@gmail.com": {
+      "emailVerified": true,
+      "idToken": "",
+      "providerId": "google.com",
+      "refreshToken": "",
+      "userid": 1
+    },
+    "example2@gmail.com": {
+      "emailVerified": true,
+      "idToken": "",
+      "providerId": "google.com",
+      "refreshToken": "",
+      "userid": 2
+    },
+    "example3@gmail.com": {
+        "emailVerified": true,
+        "idToken": "",
+        "providerId": "google.com",
+        "refreshToken": "",
+        "userid": 3
+      }
+}
+}
