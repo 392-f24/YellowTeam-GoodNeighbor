@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { HashRouter } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap-icons/font/bootstrap-icons.css';
 import Navigation from './components/Navigation.jsx';
 import SignInPage from './SignIn.jsx';
 import './App.css';
@@ -13,8 +12,7 @@ const App = () => {
     <HashRouter>
     <div className="App">
       <header className="App-header">
-        {/* <Navigation/> */}
-        <SignInPage/>
+                <SignInPage/>
       </header>
     </div>
     </HashRouter>
