@@ -1,5 +1,6 @@
 import { useAuthState } from './utilities/firebase';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 import SignInPage from './components/pages/SignIn.jsx';
 import './App.css';
