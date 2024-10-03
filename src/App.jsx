@@ -1,12 +1,10 @@
 import { useAuthState } from './utilities/firebase';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap-icons/font/bootstrap-icons.css';
 import SignInPage from './components/pages/SignIn.jsx';
 import './App.css';
 
-import Navbar from './components/Navigation';
+import Navigationbar from './components/Navigation';
 import HomePage from './components/pages/HomePage';
 import RequestsPage from './components/pages/RequestsPage';
 import ProfilePage from './components/pages/ProfilePage';
@@ -39,7 +37,7 @@ const App = () => {
               </Routes>
             </div>
             <div>
-              <Navbar /> 
+              <Navigationbar /> 
             </div>
           </>
         )}
