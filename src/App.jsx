@@ -3,7 +3,7 @@ import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import SignInPage from './SignIn.jsx';
+import SignInPage from './components/pages/SignIn.jsx';
 import './App.css';
 
 import Navbar from './components/Navigation';
