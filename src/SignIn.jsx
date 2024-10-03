@@ -1,5 +1,6 @@
 import Navigation from './components/Navigation.jsx';
 import "./SignIn.css"
+import AuthButton from './components/Buttons.jsx'
 
 const SignInPage = () => {
     return (
@@ -9,7 +10,7 @@ const SignInPage = () => {
                     <i class="bi bi-house-door"></i>
                 </div>
                 <p className="title">Good Neighbor</p>
-                <Navigation />
+                <AuthButton />
             </div>
         </div>
     );

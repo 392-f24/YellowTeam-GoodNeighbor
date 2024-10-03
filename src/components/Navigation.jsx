@@ -1,14 +1,35 @@
 import { NavLink } from 'react-router-dom';
-import AuthButton from './Buttons.jsx'
+import { signInWithGoogle, signOut, useAuthState } from '../utilities/firebase';
+import './Navigation.css'
 
-const activation = ({isActive}) => isActive ? 'active' : 'inactive';
+const Navbar = () => {
+  const activeLink = "bg-blue-100 text-black";
+  const normalLink = "text-white"; // You may want to keep the normal link style
 
-const Navigation = () => (
-  <nav>
-    {/* <NavLink to="/" className={activation} end>Posts</NavLink>
-    <NavLink to="/users" className={activation} end>Users</NavLink> */}
-    <AuthButton />
-  </nav>
-);
+  return (
+    <section>
+      <div className="bottom-nav">
+        <NavLink
+          to="/"
+          className={({ isActive }) => (isActive ? activeLink : normalLink)}
+        >
+          <p className="nav-link">Home</p>
+        </NavLink>
+        <NavLink
+          to="/profile"
+          className={({ isActive }) => (isActive ? activeLink : normalLink)}
+        >
+          <p className="nav-link">Profile</p>
+        </NavLink>
+        <NavLink
+          to="/requests"
+          className={({ isActive }) => (isActive ? activeLink : normalLink)}
+        >
+          <p className="nav-link">Requests</p>
+        </NavLink>
+      </div>
+    </section>
+  );
+};
 
-export default Navigation;
+export default Navbar;
