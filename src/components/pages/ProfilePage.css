@@ -1,0 +1,11 @@
+.profile-page {
+    align-items: center;
+    display: flex;
+    width: 375px;
+    min-height: 100vh;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(180deg, rgba(209, 231, 221, 0.50) 0%, rgba(1, 110, 60, 0.50) 100%), #FFF;
+}
