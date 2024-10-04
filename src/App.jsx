@@ -9,13 +9,15 @@ import Navigationbar from './components/Navigation';
 import HomePage from './components/pages/HomePage';
 import RequestsPage from './components/pages/RequestsPage';
 import ProfilePage from './components/pages/ProfilePage';
+import RequestForm from './components/RequestForm'; 
+
 import AuthButton from './components/Buttons'; 
 
 const App = () => {
-  const [user, loading, error] = useAuthState(); // Hook to get authentication state (user)
+  const [user, loading, error] = useAuthState(); 
 
   if (loading) {
-    return <div>Loading...</div>; // Show a loading message while Firebase auth is initializing
+    return <div>Loading...</div>; 
   }
 
   if (error) {
@@ -35,6 +37,9 @@ const App = () => {
                 <Route path="/" element={<HomePage />} />
                 <Route path="/requests" element={<RequestsPage />} />
                 <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/requestform" element={<RequestForm />} />
+
+                
               </Routes>
             </div>
             <div>
