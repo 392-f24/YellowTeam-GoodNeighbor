@@ -1,5 +1,6 @@
 import React from 'react'
 import "./HomePage.css"
+import RequestList from "../RequestList"
 
 const HomePage = () => {
   return (
@@ -9,9 +10,8 @@ const HomePage = () => {
           <a class="navbar-brand" href="#">Fixed bottom</a>
         </div>
       </nav> */}
-      <h1>HOMEPAGE</h1>
-    
-  </div>
+      <RequestList />
+    </div>
   )
 }
 

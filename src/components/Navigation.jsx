@@ -12,7 +12,7 @@ const Navigationbar = () => {
   return (
     <Navbar fixed="bottom" expand="lg" className="bg-body-tertiary">
       <Container>
-        <Navbar.Brand href="#home">
+        <Navbar.Brand href="/">
           <img src={house} 
             className="d-inline-block align-top"
           />
