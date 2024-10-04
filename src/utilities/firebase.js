@@ -1,4 +1,4 @@
-import { getDatabase, onValue, ref, update, get } from 'firebase/database';
+import { getDatabase, onValue, ref, update, get, push, set } from 'firebase/database';
 import { useCallback, useEffect, useState } from 'react';
 import { initializeApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut as firebaseSignOut } from 'firebase/auth';
@@ -81,3 +81,18 @@ export const useAuthState = () => {
     return [user];
 };
 
+export const useDbAdd = (path) => {
+    const [result, setResult] = useState(null);
+  
+    const add = async (data) => {
+      try {
+        const newRef = push(ref(database, path)); // Using the modular syntax
+        await set(newRef, data); // Set data at the new reference
+        setResult({ message: 'Request added successfully!', error: false });
+      } catch (error) {
+        setResult({ message: error.message, error: true });
+      }
+    };
+  
+    return [add, result];
+  };

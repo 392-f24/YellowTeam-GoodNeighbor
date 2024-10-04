@@ -1,0 +1,71 @@
+/* General styles for the form */
+form {
+  max-width: 600px; 
+  margin: 20px auto;
+  padding: 30px;
+  background-color: #f9f9f9; 
+  border: 1px solid #ddd; 
+  border-radius: 8px; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: black; 
+  font-size: 1.25rem;
+}
+
+/* Styles for labels */
+.form-label {
+  display: block; 
+  margin-bottom: 2px; 
+}
+
+/* Styles for input fields */
+.form-control {
+  width: 80%; 
+  height: 25px;
+  border-radius: 4px; 
+  border: 1px solid #ccc;
+  margin-bottom: 12px;
+  padding: 8px; 
+  color: black; 
+}
+
+.form-control.is-invalid {
+  border-color: #dc3545; 
+}
+
+.invalid-feedback {
+  color: #dc3545; 
+}
+
+.button {
+  border-radius: 8px; 
+  color: black;
+  background: #D1E7DD; 
+  border: none; 
+  padding: 5px 10px; 
+  margin: 5px; 
+  cursor: pointer;
+  font-weight: normal; 
+  transition: background-color 0.3s; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
+}
+
+.button:hover {
+  background-color: #B2E2D6; 
+}
+
+.requestform-page {
+  align-items: center;
+  display: flex;
+  width: 375px;
+  min-height: 100vh;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(180deg, rgba(209, 231, 221, 0.50) 0%, rgba(1, 110, 60, 0.50) 100%), #FFF;
+}
+
+.input-description {
+  height: 200x; /* Set the desired height */
+  resize: none; /* Prevent resizing if it's a textarea */
+}

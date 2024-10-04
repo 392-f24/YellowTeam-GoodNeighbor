@@ -10,6 +10,8 @@ import Navbar from './components/Navigation';
 import HomePage from './components/pages/HomePage';
 import RequestsPage from './components/pages/RequestsPage';
 import ProfilePage from './components/pages/ProfilePage';
+import RequestForm from './components/RequestForm'; // Adjust the path as necessary
+
 import AuthButton from './components/Buttons'; 
 
 const App = () => {
@@ -36,6 +38,9 @@ const App = () => {
                 <Route path="/" element={<HomePage />} />
                 <Route path="/requests" element={<RequestsPage />} />
                 <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/requestform" element={<RequestForm />} />
+
+                
               </Routes>
             </div>
             <div>
