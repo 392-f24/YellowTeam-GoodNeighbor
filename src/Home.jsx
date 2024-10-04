@@ -1,18 +1,16 @@
-import Navigation from './components/Navigation.jsx';
 import "./SignIn.css"
-import AuthButton from './components/Buttons.jsx'
 
-const SignInPage = () => {
+const HomePage = () => {
     return (
         <div className="sign-in-page">
             <div className="sign-in">
                 <div className="house">
                     <i class="bi bi-house-door"></i>
                 </div>
-                <p className="title">Good Neighbor</p>
-                <AuthButton />
+                <p className="title">Welcome</p>
+                
             </div>
         </div>
     );
 }
-export default SignInPage;
+export default HomePage;
