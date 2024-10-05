@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "./HomePage.css";
-import RequestList from "../RequestList";
+
+import RequestList from "../RequestList"
 
 const HomePage = () => {
   const [description, setDescription] = useState(''); 
@@ -13,6 +14,13 @@ const HomePage = () => {
 
   return (
     <div className='homepage'>
+      {/* <nav class="navbar fixed-bottom navbar-light bg-light">
+        <div class="container">
+          <a class="navbar-brand" href="#">Fixed bottom</a>
+        </div>
+      </nav> */}
+      
+
       <h5>New Request</h5>
       <textarea
         placeholder="How can your neighbors help?" 
@@ -22,11 +30,10 @@ const HomePage = () => {
         rows="4" 
         style={{ height: 'auto' }} 
       />
-
       <button onClick={DirectToRequestForm} className="request-submit-button">Submit</button>
-      
-      {/* Render the RequestList component */}
+
       <RequestList />
+
     </div>
   );
 };
