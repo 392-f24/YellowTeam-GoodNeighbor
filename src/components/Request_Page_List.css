@@ -3,36 +3,3 @@
     padding: 10px 0; /* Optional padding */
     margin-bottom: 20px; /* Add space below the buttons */
   }
-
-
-  .badge {
-    font-size: 1em; /* Default size for larger screens */
-    padding: 0.5em 1em;
-  }
-  
-  @media (max-width: 768px) {
-    .badge {
-      font-size: 0.9em; /* Slightly smaller font size for medium screens */
-    }
-  }
-  
-  @media (max-width: 576px) {
-    .badge {
-      font-size: 0.8em; /* Even smaller for mobile screens */
-      padding: 0.3em 0.6em; /* Adjust padding as well */
-    }
-  }
-  .text-highlight {
-    color: #2c7c74; 
-    font-weight: normal;
-  }
-  
-  .text-highlight strong {
-    font-weight: bold; 
-  }
-  
-  .normal-text {
-    font-weight: normal; 
-  }
-
-  /* button styling */
