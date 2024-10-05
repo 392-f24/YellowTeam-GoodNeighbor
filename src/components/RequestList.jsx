@@ -80,16 +80,18 @@ const RequestList = () => {
                                                 </div>
                                             </div>
                                             <small className="text-muted mb-2">{request.location || "Unknown location"}</small>
-                                            <Card.Text>{request.description}</Card.Text>
+                                            <Card.Text>{request.request_text}</Card.Text>
                                         </div>
                                     </Card.Body>
                                 </Card>
+                                {/* Create a pop up modal when a card is selected
+                                    in order to complete a request */}
                                 <Modal show={show} onHide={handleClose}>
                                     <Modal.Header closeButton>
                                         <Modal.Title>Modal heading</Modal.Title>
                                     </Modal.Header>
                                     <Modal.Body>
-                                        <AcceptanceForm />
+                                        <AcceptanceForm request={request} user={user}/>
                                     </Modal.Body>
                                 </Modal>
                             </div>
