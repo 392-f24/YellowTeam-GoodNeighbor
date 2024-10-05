@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
-import { DropdownButton, Dropdown, Card } from 'react-bootstrap';
-import { useDbData } from '../utilities/firebase';
+import React, { useState, useEffect } from 'react';
+import { DropdownButton, Dropdown, Card, Button } from 'react-bootstrap';
+import Form from 'react-bootstrap/Form';
+import Modal from 'react-bootstrap/Modal';
+
+import AcceptanceForm from '../components/AcceptanceForm'
 import "./RequestList.css";
 import AcceptRequestModal from "./Modal"
 
@@ -9,27 +12,23 @@ const RequestList = () => {
     const [show, setShow] = useState(false);
     const [currentRequest, setCurrentRequest] = useState(null);
 
-    // Use useDbData hook to get the users and requests from Firebase
-    const [requestsData, requestsError] = useDbData('/requests');
-    const [usersData, usersError] = useDbData('/users');
-
-    if (requestsError || usersError) {
-        return <div>Error loading data!</div>;
-    }
-
-    if (!requestsData || !usersData) {
-        return <div>Loading...</div>;
-    }
-
-    const requests = Object.values(requestsData); // Convert requests object to array
-    const users = usersData;
-    const requestsNotAccepted = requests.filter(request => request.accept_status === false);
+    // For Modal pop up
+    const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
-    const handleShow = (request) => {
-        setCurrentRequest(request);
-        setShow(true);
-    };
+    const handleShow = () => setShow(true);
+
+    // Fetch the JSON data when the component loads
+    // useEffect(() => {
+    //     fetch('/data/mockupdata.json') // Hardcoding this for now
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             const requestArray = Object.values(data.requests);
+    //             setRequests(requestArray);
+    //             setUsers(data.users);
+    //         })
+    //         .catch(error => console.error('Error fetching data:', error));
+    // }, []);
 
     const handleSort = (criterion) => {
         const sortedRequests = [...requests].sort((a, b) => {
@@ -67,7 +66,7 @@ const RequestList = () => {
 
                         return (
                             <div key={request.request_id} className="col-12 mb-3">
-                                <Card className="shadow border-0 cursor-pointer hover-effect" onClick={() => handleShow(request)}>
+                                <Card className="shadow border-0" onClick={handleShow}>
                                     <Card.Body className="p-0">
                                         <Card.Header className="text-muted">
                                             {request.timer} min remaining
@@ -85,6 +84,14 @@ const RequestList = () => {
                                         </div>
                                     </Card.Body>
                                 </Card>
+                                <Modal show={show} onHide={handleClose}>
+                                    <Modal.Header closeButton>
+                                        <Modal.Title>Modal heading</Modal.Title>
+                                    </Modal.Header>
+                                    <Modal.Body>
+                                        <AcceptanceForm />
+                                    </Modal.Body>
+                                </Modal>
                             </div>
                         );
                     })}

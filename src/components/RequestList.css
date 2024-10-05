@@ -2,21 +2,6 @@ h2 {
     font-family: 'Courier New', Courier, monospace;
 }
 
-.request-list-header {
-    position: sticky;  /* Makes the element sticky */
-    top: 0;            /* Sticks it to the top of the viewport */
-    background-color: #D1E7DD; /* Set a background color to prevent content from showing through */
-    z-index: 1000;    /* Ensures it is on top of other content */
-    padding: 10px;         
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.hover-effect {
-    cursor: pointer;
-    transition: box-shadow 0.3s, transform 0.3s;
-}
-
-.hover-effect:hover {
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-    transform: translateY(-5px);
+.modal-backdrop {
+    opacity: 0.1 ! important; /* Adjust the value to your preference (0 to 1) */
 }
