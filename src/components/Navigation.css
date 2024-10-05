@@ -18,4 +18,35 @@
 .good-neighbor {
   padding-left: 10px;
   padding-right:10px;
+  /* margin-bottom: 30px; */
+}
+
+.navSelectionStyle {
+  font-size: 20px;
+  line-height: 0.5;
+  /* height: 60px; */
+  margin-top:10px;
+}
+
+.homeNavStyle{
+  justify-items: center; 
+  font-family: "Hepta Slab-Regular";
+  color: #000000;
+  
+}
+
+.homeNavStyle:hover{
+  color: #4B7260;
+}
+
+.navPagesStyling{
+  justify-items: center; 
+
+  padding-top: -50px;
+  font-family: "Hepta Slab-Regular";
+  color: #000000;
+}
+
+.navPagesStyling:hover{
+  color: #4B7260;
 }
