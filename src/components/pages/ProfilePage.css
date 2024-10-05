@@ -8,3 +8,60 @@
     gap: 10px;
     background: linear-gradient(180deg, rgba(209, 231, 221, 0.50) 0%, rgba(1, 110, 60, 0.50) 100%), #FFF;
 }
+
+.user-name{
+    font-family: "Hepta Slab-Regular";
+    font-size: 50px;
+}
+
+.starStyle {
+    color: #FFC800;
+}
+
+.goodNeighborRanking {
+    font-family: "Hepta Slab-Regular";
+    color: #997512;
+    font-size: 20px;
+}
+
+.StatsContainer{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows:  1fr;
+    column-gap: 20px;
+    /* height: 300px; */
+    width: 100%;
+    margin:30px;
+    padding-inline: 30px;
+    font-family: "Hepta Slab-Regular";
+}
+    .TasksBy {
+        grid-column: 1;
+        grid-row: 1;
+        background: #FFFFFF;
+        border-radius: 20px;
+        padding:20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    .TasksFor {
+        grid-column: 2;
+        grid-row: 1;
+        background: #FFFFFF;
+        border-radius: 20px;
+        padding:20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    .numberStyle {
+        color: #0F8176;
+        font-size:70px;
+        width: 100%;
+        /* justify-self: center;
+        align-items: center; */
+        text-align: center;
+    }
+    .textStyle {
+        font-size: 20px;
+        justify-self: center;
+        align-items: center;
+        text-align: center;
+    }

@@ -9,7 +9,7 @@
       "task_CBU": 0,
       "task_CFU": 0,
       "userid": "hFiohCGBZ3WaQyCVbr58WQA94Oh2",
-      "username": "Herbert"
+      "username": ""
     },
     "4M9VkGLjNUfC9wmjE25EtG5oAXG3": {
         "location": "",
@@ -44,7 +44,7 @@
       "request_id": 1,
       "request_text": "Could someone borrow me a hammer?",
       "userid": "hFiohCGBZ3WaQyCVbr58WQA94Oh2",
-      "username": "Herbert"
+      "username": ""
     },
     "2": {
         "accept_status": false,
@@ -88,12 +88,12 @@
         "request_id": 5,
         "request_text": "I need help with assembling some furniture this weekend.",
         "userid": "hFiohCGBZ3WaQyCVbr58WQA94Oh2",
-        "username": "Herbert"
+        "username": ""
       }
 },
 
 "login_credentials": {
-    "herbertmb540@gmail.com": {
+    "mb540@gmail.com": {
       "emailVerified": true,
       "idToken": "",
       "providerId": "google.com",

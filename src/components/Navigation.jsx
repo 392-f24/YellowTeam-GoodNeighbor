@@ -20,23 +20,23 @@ const Navigationbar = () => {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
+          <Nav className="navSelectionStyle">
 
             <Nav.Link>
               <NavLink to="/">
-                Home
+                <p className="homeNavStyle">Home</p>
               </NavLink>
             </Nav.Link>
 
             <Nav.Link>
               <NavLink to="/profile">
-                Profile
+                <p className="navPagesStyling">Profile</p>
               </NavLink>
             </Nav.Link>
 
             <Nav.Link>
               <NavLink to="/requests">
-                Requests
+                <p className="navPagesStyling">Requests</p>
               </NavLink>
             </Nav.Link>
           </Nav>
