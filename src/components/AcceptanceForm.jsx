@@ -1,7 +1,35 @@
 import {Form, Container, Button} from 'react-bootstrap';
+import { useDbData } from "../utilities/firebase";
+import { ref, onValue, set } from 'firebase/database';
+import { ref as sRef } from 'firebase/storage';
 
-//default form 
-const AcceptanceForm = () => {
+const AcceptanceForm = (request) => {
+    console.log(request.request);
+    const [data, error] = useDbData(`/requests/${request.request.request_id}`);
+
+    if (error) return <h1>Error loading data: {error.toString()}</h1>;
+    if (data === undefined) return <h1>Loading data...</h1>;
+    if (!data) return <h1>No data found</h1>;
+
+    const AcceptRequest = (e) => {
+        e.preventDefault();
+        try{
+            set(data, {...(request.request), description: "foo"})
+            .then(() => {
+                console.log("Description updated successfully!");
+            })
+            .catch((updateError) => {
+                console.error("Error updating description:", updateError);
+            });
+        } 
+        catch (error) {
+            console.error("Error occurred:", error.message);
+        //     setResult({ message: error.message, error: true });
+        }
+        return;
+    }
+
+    // const reqRef = sRef(data, `${userid}`);
     return (
         <Container className="mt-5">
             <Form>
@@ -32,7 +60,7 @@ const AcceptanceForm = () => {
 
                 {/* Accept Button */}
                 <div className="d-flex justify-content-center">
-                    <Button variant="primary" type="submit">
+                    <Button variant="primary" type="submit" onClick={AcceptRequest}>
                         Accept Request
                     </Button>
                 </div>

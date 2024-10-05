@@ -7,6 +7,16 @@ import AcceptanceForm from '../components/AcceptanceForm'
 import "./RequestList.css";
 
 const initialUsers = {
+    "MhzK1F5wrjYKtyxh9enputHKKRE2": {
+        "location": "",
+        "photo_url": "",
+        "rate_count": 1,
+        "rate_score": 5,
+        "task_CBU": 0,
+        "task_CFU": 0,
+        "userid": "MhzK1F5wrjYKtyxh9enputHKKRE2",
+        "username": "Diana"
+    },
     "hFiohCGBZ3WaQyCVbr58WQA94Oh2": {
         "location": "",
         "photo_url": "",
@@ -40,6 +50,17 @@ const initialUsers = {
 };
 
 const initialRequests = [
+    {
+        "accept_status": false,
+        "accept_userid": "",
+        "duration": 1,
+        "location": "",
+        "post_time": "2024-10-01T00:00:00Z",
+        "request_id": "-O8SWNA-j6h9MgVQ9n_s",
+        "request_text": "I need an onion for my soup!",
+        "userid": "MhzK1F5wrjYKtyxh9enputHKKRE2",
+        "username": "Diana"
+    },
     {
         "accept_status": false,
         "accept_userid": "",
@@ -79,7 +100,7 @@ const initialRequests = [
         "duration": 10,
         "location": "",
         "post_time": "2024-10-04T08:15:00Z",
-        "request_id": 4,
+        "request_id": "-O8TitKag8bdO1C_0Vbm",
         "request_text": "Can someone water my plants while I’m on vacation?",
         "userid": "4M9VkGLjNUfC9wmjE25EtG5oAXG3",
         "username": "Haichen"
@@ -192,7 +213,7 @@ const RequestList = () => {
                                         <p>
                                             {curretRequest.request_text}
                                         </p>
-                                        <AcceptanceForm />
+                                        <AcceptanceForm request={curretRequest}/>
                                     </Modal.Body>
                                 </Modal>
                             </div>
