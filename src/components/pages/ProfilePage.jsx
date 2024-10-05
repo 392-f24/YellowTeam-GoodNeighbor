@@ -3,21 +3,35 @@ import "./ProfilePage.css"
 import AuthButton from '../Buttons';
 import StarRate from "../starRate";
 import { renderStars } from "../renderStars";
+import { useAuthState, useDbData } from '../../utilities/firebase';
 
 const ProfilePage = () => {
+
+  const [user] = useAuthState();
+
+  const user_id = user ? user.uid : "TESTING";
+
+  const [usersData, usersError] = useDbData(`users/${user_id}`);
+
+  if (!user) {
+    return <p>Loading user data...</p>;
+  }
+
+  if (!usersData) {
+    return <p>Loading user-specific data...</p>;  // Handle loading state for usersData
+  }
+  if (!user) {
+    return <p>Loading user data...</p>;
+  }
+
   return (
     <div className='profile-page'>
       {/* should be replaced with auth data */}
-      <h1 className="user-name">Herbert Botwe</h1>
+      <h1 className="user-name"> {user.displayName || "Anonymous"} </h1>  {/* Ensure user.displayName is not undefined */}
 
       {/* Stars */}
-      {/* <div className="starStyle">
-        <StarRate />
-
-
-      </div>   */}
       <div className="starStyle">
-        { renderStars(4.5)}
+        { renderStars(usersData.rate_score) }  {/* Pass the rateScore to renderStars */}
       </div>
 
       <p className="goodNeighborRanking">Good Neightbor Rating</p>
