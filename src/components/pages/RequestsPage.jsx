@@ -1,11 +1,11 @@
 import React from 'react';
 import './RequestsPage.css'
-
+import Request_Page_List from "../Request_Page_List"
 const RequestsPage = () => {
   return (
     <div className="requests-page">
-      <h1>Requests Page</h1>
-      <p>This is the Requests Page.</p>
+      <h1>Your Requests Dashboard</h1>
+      <Request_Page_List />
     </div>
   );
 };
