@@ -4,6 +4,8 @@ import { useDbAdd } from '../utilities/firebase';
 import './RequestForm.css'
 import { useAuthState } from '../utilities/firebase';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { push, ref } from 'firebase/database';
+import { database } from '../utilities/firebase';
 
 // const validateCourseData = (key, val) => {
 //   switch (key) {
@@ -62,12 +64,15 @@ const RequestForm = () => {
   const [add, result] = useDbAdd('requests');
   const [user] = useAuthState();
 
+
+  const newRequestId = push(ref(database, 'requests')).key;
+
   const hardcodedData = {
     accept_status: false,
     accept_userid: "",
     location: "",
     post_time: new Date().toISOString(),
-    request_id: 5,
+    request_id: newRequestId,
     userid: user ? user.uid : "TESTING",
     username: user ? user.displayName || "Anonymous" : "Anonymous",
   };
@@ -79,7 +84,7 @@ const RequestForm = () => {
 
     if (Object.keys(errors).length === 0) {
       try {
-        await add({ ...formState.values, ...hardcodedData });
+        await add({ ...formState.values, ...hardcodedData }, newRequestId);
         console.log('Form submitted:', { ...formState.values, ...hardcodedData });
         navigate('/'); // Navigate back to homepage after successful submission
       } catch (error) {

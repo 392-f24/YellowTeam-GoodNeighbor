@@ -84,10 +84,11 @@ export const useAuthState = () => {
 export const useDbAdd = (path) => {
     const [result, setResult] = useState(null);
   
-    const add = async (data) => {
+    // Given data and a key, the key is used to create a new path for the data
+    const add = async (data, key) => {
       try {
-        const newRef = push(ref(database, path)); // Using the modular syntax
-        await set(newRef, data); // Set data at the new reference
+        const newRef = ref(database, `${path}/${key}`); // Use the key passed in the argument
+        await set(newRef, data); // Set data at the specified reference
         setResult({ message: 'Request added successfully!', error: false });
       } catch (error) {
         setResult({ message: error.message, error: true });
