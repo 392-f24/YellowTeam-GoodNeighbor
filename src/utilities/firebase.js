@@ -1,4 +1,4 @@
-import { getDatabase, onValue, ref, update, get, push, set,remove } from 'firebase/database';
+import { getDatabase, onValue, ref, update, get, push, set ,remove} from 'firebase/database';
 import { useCallback, useEffect, useState } from 'react';
 import { initializeApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut as firebaseSignOut } from 'firebase/auth';
@@ -42,7 +42,7 @@ const makeResult = (error) => {
 
 export const useDbUpdate = (path) => {
     const [result, setResult] = useState();
-    const updateData = useCallback((value) => {
+    const updateData = useCallback(async (value) => {
         console.log('Updating path:', path);
         console.log('Value before update:', value);
 
@@ -84,10 +84,11 @@ export const useAuthState = () => {
 export const useDbAdd = (path) => {
     const [result, setResult] = useState(null);
   
-    const add = async (data) => {
+    // Given data and a key, the key is used to create a new path for the data
+    const add = async (data, key) => {
       try {
-        const newRef = push(ref(database, path)); // Using the modular syntax
-        await set(newRef, data); // Set data at the new reference
+        const newRef = ref(database, `${path}/${key}`); // Use the key passed in the argument
+        await set(newRef, data); // Set data at the specified reference
         setResult({ message: 'Request added successfully!', error: false });
       } catch (error) {
         setResult({ message: error.message, error: true });
@@ -97,6 +98,11 @@ export const useDbAdd = (path) => {
     return [add, result];
   };
 
+  export const getRef = (path) => {
+
+
+
+  };
   export const useDbRemove = () => {
     const [result, setResult] = useState(null);
 
