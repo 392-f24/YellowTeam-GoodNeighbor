@@ -69,7 +69,7 @@ const RequestList = () => {
                                 <Card className="shadow border-0 cursor-pointer hover-effect" onClick={() => handleShow(request)}>
                                     <Card.Body className="p-0">
                                         <Card.Header className="text-muted">
-                                            {request.expected_duration} min remaining
+                                            {request.timer} min remaining
                                         </Card.Header>
                                         <div className="p-3">
                                             <div className="d-flex justify-content-between align-items-center mb-1">
@@ -80,7 +80,7 @@ const RequestList = () => {
                                                 </div>
                                             </div>
                                             <small className="text-muted mb-2">{request.location || "Unknown location"}</small>
-                                            <Card.Text>{request.request_text}</Card.Text>
+                                            <Card.Text>{request.description}</Card.Text>
                                         </div>
                                     </Card.Body>
                                 </Card>
