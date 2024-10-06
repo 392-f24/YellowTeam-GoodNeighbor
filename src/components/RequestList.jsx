@@ -23,6 +23,7 @@ const RequestList = () => {
 
     const requests = Object.values(requestsData); // Convert requests object to array
     const users = usersData;
+    const requestsNotAccepted = requests.filter(request => request.accept_status === false);
 
     const handleClose = () => setShow(false);
     const handleShow = (request) => {
@@ -60,7 +61,7 @@ const RequestList = () => {
 
             <div className="flex-grow-1 overflow-auto px-3 py-2" style={{ maxHeight: 'calc(100vh - 150px)' }}>
                 <div className="row">
-                    {requests.map(request => {
+                    {requestsNotAccepted.map(request => {
                         const user = users[request.userid]; // Get user info for each request
                         const rating = user ? user.rate_score : 0;
 
