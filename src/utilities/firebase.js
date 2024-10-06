@@ -1,4 +1,4 @@
-import { getDatabase, onValue, ref, update, get, push, set,remove } from 'firebase/database';
+import { getDatabase, onValue, ref, update, get, push, set ,remove} from 'firebase/database';
 import { useCallback, useEffect, useState } from 'react';
 import { initializeApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut as firebaseSignOut } from 'firebase/auth';
@@ -42,7 +42,7 @@ const makeResult = (error) => {
 
 export const useDbUpdate = (path) => {
     const [result, setResult] = useState();
-    const updateData = useCallback((value) => {
+    const updateData = useCallback(async (value) => {
         console.log('Updating path:', path);
         console.log('Value before update:', value);
 
@@ -98,6 +98,11 @@ export const useDbAdd = (path) => {
     return [add, result];
   };
 
+  export const getRef = (path) => {
+
+
+
+  };
   export const useDbRemove = () => {
     const [result, setResult] = useState(null);
 
