@@ -1,123 +1,40 @@
-import React, { useState, useEffect } from 'react';
-import { DropdownButton, Dropdown, Card, Button } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { DropdownButton, Dropdown, Card, Button, Modal } from 'react-bootstrap';
+import AcceptanceForm from '../components/AcceptanceForm';
+import { useDbData } from '../utilities/firebase';
 import "./RequestList.css";
 
-const initialUsers = {
-    "hFiohCGBZ3WaQyCVbr58WQA94Oh2": {
-        "location": "",
-        "photo_url": "",
-        "rate_count": 1,
-        "rate_score": 5,
-        "task_CBU": 0,
-        "task_CFU": 0,
-        "userid": "hFiohCGBZ3WaQyCVbr58WQA94Oh2",
-        "username": "Herbert"
-    },
-    "4M9VkGLjNUfC9wmjE25EtG5oAXG3": {
-        "location": "",
-        "photo_url": "",
-        "rate_count": 1,
-        "rate_score": 5,
-        "task_CBU": 0,
-        "task_CFU": 0,
-        "userid": "4M9VkGLjNUfC9wmjE25EtG5oAXG3",
-        "username": "Haichen"
-    },
-    "5YWLUchgSKMICGcUq6ctzynfvBS2": {
-        "location": "",
-        "photo_url": "",
-        "rate_count": 1,
-        "rate_score": 5,
-        "task_CBU": 0,
-        "task_CFU": 0,
-        "userid": "5YWLUchgSKMICGcUq6ctzynfvBS2",
-        "username": "Linh"
-    }
-};
-
-const initialRequests = [
-    {
-        "accept_status": false,
-        "accept_userid": "",
-        "duration": 5,
-        "location": "",
-        "post_time": "2024-10-01T00:00:00Z",
-        "request_id": 1,
-        "request_text": "Could someone borrow me a hammer?",
-        "userid": "hFiohCGBZ3WaQyCVbr58WQA94Oh2",
-        "username": "Herbert"
-    },
-    {
-        "accept_status": false,
-        "accept_userid": "",
-        "duration": 15,
-        "location": "",
-        "post_time": "2024-10-02T09:30:00Z",
-        "request_id": 2,
-        "request_text": "Can anyone walk my dog tomorrow morning?",
-        "userid": "4M9VkGLjNUfC9wmjE25EtG5oAXG3",
-        "username": "Haichen"
-    },
-    {
-        "accept_status": false,
-        "accept_userid": "",
-        "duration": 60,
-        "location": "",
-        "post_time": "2024-10-03T14:00:00Z",
-        "request_id": 3,
-        "request_text": "Looking for help fixing my fence. Anyone available?",
-        "userid": "5YWLUchgSKMICGcUq6ctzynfvBS2",
-        "username": "Linh"
-    },
-    {
-        "accept_status": false,
-        "accept_userid": "",
-        "duration": 10,
-        "location": "",
-        "post_time": "2024-10-04T08:15:00Z",
-        "request_id": 4,
-        "request_text": "Can someone water my plants while I’m on vacation?",
-        "userid": "4M9VkGLjNUfC9wmjE25EtG5oAXG3",
-        "username": "Haichen"
-    },
-    {
-        "accept_status": false,
-        "accept_userid": "",
-        "duration": 45,
-        "location": "",
-        "post_time": "2024-10-05T17:45:00Z",
-        "request_id": 5,
-        "request_text": "I need help with assembling some furniture this weekend.",
-        "userid": "hFiohCGBZ3WaQyCVbr58WQA94Oh2",
-        "username": "Herbert"
-    }
-];
-
-
 const RequestList = () => {
-    // const [requests, setRequests] = useState([]);
-    // const [users, setUsers] = useState({});
-    const [requests, setRequests] = useState(initialRequests);
-    const [users, setUsers] = useState(initialUsers);
     const [sortBy, setSortBy] = useState('timeRemaining');
+    const [show, setShow] = useState(false);
+    const [currentRequest, setCurrentRequest] = useState(null);
 
-    // Fetch the JSON data when the component loads
-    // useEffect(() => {
-    //     fetch('/data/mockupdata.json') // Hardcoding this for now
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             const requestArray = Object.values(data.requests);
-    //             setRequests(requestArray);
-    //             setUsers(data.users);
-    //         })
-    //         .catch(error => console.error('Error fetching data:', error));
-    // }, []);
+    // Use useDbData hook to get the users and requests from Firebase
+    const [requestsData, requestsError] = useDbData('/requests');
+    const [usersData, usersError] = useDbData('/users');
 
-    // Sorting function for time remaining, distance, and rating
+    if (requestsError || usersError) {
+        return <div>Error loading data!</div>;
+    }
+
+    if (!requestsData || !usersData) {
+        return <div>Loading...</div>;
+    }
+
+    const requests = Object.values(requestsData); // Convert requests object to array
+    const users = usersData;
+    const requestsNotAccepted = requests.filter(request => request.accept_status === false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = (request) => {
+        setCurrentRequest(request);
+        setShow(true);
+    };
+
     const handleSort = (criterion) => {
         const sortedRequests = [...requests].sort((a, b) => {
             if (criterion === 'timeRemaining') {
-                return a.duration - b.duration;
+                return a.expected_duration - b.expected_duration;
             } else if (criterion === 'distance') {
                 return 0;
             } else if (criterion === 'rating') {
@@ -132,7 +49,7 @@ const RequestList = () => {
     };
 
     return (
-        <div>
+        <div className="w-100">
             <div className="d-flex justify-content-center align-items-center mb-3">
                 <h2 className="mb-0 me-2">Request List</h2>
                 <DropdownButton id="dropdown-basic" variant="secondary" size="sm" title="Sort by">
@@ -144,16 +61,16 @@ const RequestList = () => {
 
             <div className="flex-grow-1 overflow-auto px-3 py-2" style={{ maxHeight: 'calc(100vh - 150px)' }}>
                 <div className="row">
-                    {requests.map(request => {
+                    {requestsNotAccepted.map(request => {
                         const user = users[request.userid]; // Get user info for each request
                         const rating = user ? user.rate_score : 0;
 
                         return (
                             <div key={request.request_id} className="col-12 mb-3">
-                                <Card className="shadow border-0">
+                                <Card className="shadow border-0 cursor-pointer hover-effect" onClick={() => handleShow(request)}>
                                     <Card.Body className="p-0">
                                         <Card.Header className="text-muted">
-                                            {request.duration} min remaining
+                                            {request.timer} min remaining
                                         </Card.Header>
                                         <div className="p-3">
                                             <div className="d-flex justify-content-between align-items-center mb-1">
@@ -164,11 +81,7 @@ const RequestList = () => {
                                                 </div>
                                             </div>
                                             <small className="text-muted mb-2">{request.location || "Unknown location"}</small>
-                                            <Card.Text>{request.request_text}</Card.Text>
-
-                                            <div className="d-flex justify-content-end">
-                                                <Button variant="success" size="sm">Accept</Button>
-                                            </div>
+                                            <Card.Text>{request.description}</Card.Text>
                                         </div>
                                     </Card.Body>
                                 </Card>
@@ -178,6 +91,18 @@ const RequestList = () => {
                 </div>
             </div>
 
+            {/* Modal outside the map to avoid rendering multiple modals */}
+            {currentRequest && (
+                <Modal show={show} onHide={handleClose}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>{currentRequest.username} ({currentRequest.expected_duration} min remaining)</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <p>{currentRequest.description}</p>
+                        <AcceptanceForm request={currentRequest} handleClose={handleClose} />
+                    </Modal.Body>
+                </Modal>
+            )}
         </div>
     );
 };
