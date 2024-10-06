@@ -1,4 +1,4 @@
-import { getDatabase, onValue, ref, update, get, push, set } from 'firebase/database';
+import { getDatabase, onValue, ref, update, get, push, set,remove } from 'firebase/database';
 import { useCallback, useEffect, useState } from 'react';
 import { initializeApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut as firebaseSignOut } from 'firebase/auth';
@@ -96,3 +96,24 @@ export const useDbAdd = (path) => {
   
     return [add, result];
   };
+
+  export const useDbRemove = () => {
+    const [result, setResult] = useState(null);
+
+    const removeData = useCallback(async (path) => {
+        try {
+            const dbRef = ref(database, path);
+            const snapshot = await get(dbRef);
+            if (snapshot.exists()) {
+                await remove(dbRef);
+                setResult({ message: `Removed successfully`, error: false });
+            } else {
+                setResult({ message: `Error: No data found at path: ${path}`, error: true });
+            }
+        } catch (error) {
+            setResult({ message: error.message, error: true });
+        }
+    }, []);
+
+    return [removeData, result];
+};
