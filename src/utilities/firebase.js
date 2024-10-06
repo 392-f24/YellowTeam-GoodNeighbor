@@ -117,3 +117,8 @@ export const useDbAdd = (path) => {
 
     return [removeData, result];
 };
+export const getRef = (path) => {
+
+
+
+};
