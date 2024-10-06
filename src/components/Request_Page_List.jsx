@@ -1,36 +1,46 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Card } from 'react-bootstrap';
-import './Request_Page_list.css';  // Assuming you are using the same stylesheet
+import { Button, Card ,Alert} from 'react-bootstrap';
+import './Request_Page_list.css'; 
+import { useDbData ,useAuthState,useDbRemove } from '../utilities/firebase';
+
 
 const Request_Page_List = () => {
-  const [requests, setRequests] = useState([]);
   const [showUserRequests, setShowUserRequests] = useState(true);
+  const [showAlert, setShowAlert] = useState(false);
 
-  // Simulate current user ID (in a real app, this could come from context or auth)
-  const currentUserID = "123"; 
-
+  const [user] = useAuthState();
+  const currentUserID = user?.uid;
+  const [requests, error] = useDbData('requests');
+  const [removeRequest, removeResult] = useDbRemove();
+  
   useEffect(() => {
-    // Simulating fetching data from an API or database
-    const fetchedRequests = [
-      { id: 1, userid: "123", accept_userid: "", username: "Herbert", description: "Could someone borrow me a hammer?", timeRemaining: 5 },
-      { id: 2, userid: "456", accept_userid: "123", username: "Linh", description: "Looking for help fixing my fence. Anyone available?", timeRemaining: 60 },
-      { id: 3, userid: "789", accept_userid: "", username: "Haichen", description: "Can anyone walk my dog tomorrow morning?", timeRemaining: 15 },
-      { id: 4, userid: "123", accept_userid: "", username: "Herbert", description: "Could someone borrow me a hammer?", timeRemaining: 5 }
-    ];
+    if (removeResult) {
+      setShowAlert(true);
+      const timer = setTimeout(() => {
+        setShowAlert(false);
+      }, 1000); // Alert will disappear after 5 seconds
+  
+      return () => clearTimeout(timer);
+    }
+  }, [removeResult]);
 
-    setRequests(fetchedRequests);
-  }, []);
+  if (error) {
+    return <div>Error: {error.message}</div>; // Handle error
+  }
+
+  if (!requests) {
+    return <div>Loading...</div>; // Show loading until data is fetched
+  }
 
   // Filter requests based on the logged-in user (currentUserID)
-  const userRequests = requests.filter(request => request.userid === currentUserID);
-  const acceptedRequests = requests.filter(request => request.accept_userid === currentUserID);
+  const userRequests = Object.values(requests).filter(request => request.userid === currentUserID);
+  const acceptedRequests = Object.values(requests).filter(request => request.accept_userid === currentUserID);
+
 
   const handleWithdraw = (requestId) => {
-    // Remove the request with the given ID
-    // Next work  connect database and request a delete}
-    const updatedRequests = requests.filter(request => request.id !== requestId);
-    setRequests(updatedRequests);
+    removeRequest(`requests/${requestId}`);
   };
+
 
   return (
     <div className="container">
@@ -50,6 +60,11 @@ const Request_Page_List = () => {
           Requests You've Accepted
         </Button>
       </div>
+        {showAlert && (
+          <Alert variant={removeResult.error ? "danger" : "success"} className="mt-3">
+            {removeResult.message}
+          </Alert>
+        )}
 
       {/* Single content section */}
       <div className="row">
@@ -59,16 +74,16 @@ const Request_Page_List = () => {
               <h2>Your Requests</h2>
               {userRequests.length > 0 ? (
                 userRequests.map((request) => (
-                  <Card key={request.id} className="mb-3 shadow-sm">
+                  <Card key={request.request_id} className="mb-3 shadow-sm">
                     <Card.Body>
                       <Card.Title><strong>{request.username}</strong></Card.Title>
                       <Card.Text>{request.description}</Card.Text>
                       <div className="d-flex justify-content-between align-items-center">
-                        <span className="text-muted">{request.timeRemaining} min remaining</span>
+                        <span className="text-muted">{request.expected_duration} Duration</span>
                         <Button 
                           variant="danger" 
                           size="sm" 
-                          onClick={() => handleWithdraw(request.id)}
+                          onClick={() => handleWithdraw(request.request_id)}
                         >
                           Withdraw
                         </Button>
@@ -85,7 +100,7 @@ const Request_Page_List = () => {
               <h2>Requests You've Accepted</h2>
               {acceptedRequests.length > 0 ? (
                 acceptedRequests.map((request) => (
-                  <Card key={request.id} className="mb-3 shadow-sm">
+                  <Card key={request.request_id} className="mb-3 shadow-sm">
                     <Card.Body>
                       <Card.Title><strong>{request.username}</strong></Card.Title>
                       <Card.Text>{request.description}</Card.Text>

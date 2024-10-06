@@ -1,118 +1,66 @@
 {
-    "request_count": 5,
-    "users": {
-    "hFiohCGBZ3WaQyCVbr58WQA94Oh2": {
+
+  "users": {
+  "hFiohCGBZ3WaQyCVbr58WQA94Oh2": {
+    "location": "",
+    "photo_url": "",
+    "rate_count": 1,
+    "rate_score": 5,
+    "task_CBU": 0,
+    "task_CFU": 0,
+    "userid": "hFiohCGBZ3WaQyCVbr58WQA94Oh2",
+    "username": ""
+  },
+  "4M9VkGLjNUfC9wmjE25EtG5oAXG3": {
       "location": "",
       "photo_url": "",
       "rate_count": 1,
       "rate_score": 5,
       "task_CBU": 0,
       "task_CFU": 0,
-      "userid": "hFiohCGBZ3WaQyCVbr58WQA94Oh2",
-      "username": "Herbert"
+      "userid": "4M9VkGLjNUfC9wmjE25EtG5oAXG3",
+      "username": "Haichen"
     },
-    "4M9VkGLjNUfC9wmjE25EtG5oAXG3": {
-        "location": "",
-        "photo_url": "",
-        "rate_count": 1,
-        "rate_score": 5,
-        "task_CBU": 0,
-        "task_CFU": 0,
-        "userid": "4M9VkGLjNUfC9wmjE25EtG5oAXG3",
-        "username": "Haichen"
-      },
-      "5YWLUchgSKMICGcUq6ctzynfvBS2": {
-        "location": "",
-        "photo_url": "",
-        "rate_count": 1,
-        "rate_score": 5,
-        "task_CBU": 0,
-        "task_CFU": 0,
-        "userid": "5YWLUchgSKMICGcUq6ctzynfvBS2",
-        "username": "Linh"
-      }
-      
-  },
-  
-  "requests": {
-    "1": {
-      "accept_status": false,
-      "accept_userid": "",
-      "duration": 5,
+    "5YWLUchgSKMICGcUq6ctzynfvBS2": {
       "location": "",
-      "post_time": "2024-10-01T00:00:00Z",
-      "request_id": 1,
-      "request_text": "Could someone borrow me a hammer?",
-      "userid": "hFiohCGBZ3WaQyCVbr58WQA94Oh2",
-      "username": "Herbert"
-    },
-    "2": {
-        "accept_status": false,
-        "accept_userid": "",
-        "duration": 15,
-        "location": "",
-        "post_time": "2024-10-02T09:30:00Z",
-        "request_id": 2,
-        "request_text": "Can anyone walk my dog tomorrow morning?",
-        "userid": "4M9VkGLjNUfC9wmjE25EtG5oAXG3",
-        "username": "Haichen"
-      },
-      "3": {
-        "accept_status": false,
-        "accept_userid": "",
-        "duration": 60,
-        "location": "",
-        "post_time": "2024-10-03T14:00:00Z",
-        "request_id": 3,
-        "request_text": "Looking for help fixing my fence. Anyone available?",
-        "userid": "5YWLUchgSKMICGcUq6ctzynfvBS2",
-        "username": "Linh"
-      },
-      "4": {
-        "accept_status": false,
-        "accept_userid": "",
-        "duration": 10,
-        "location": "",
-        "post_time": "2024-10-04T08:15:00Z",
-        "request_id": 4,
-        "request_text": "Can someone water my plants while I’m on vacation?",
-        "userid": "4M9VkGLjNUfC9wmjE25EtG5oAXG3",
-        "username": "Haichen"
-      },
-      "5": {
-        "accept_status": false,
-        "accept_userid": "",
-        "duration": 45,
-        "location": "",
-        "post_time": "2024-10-05T17:45:00Z",
-        "request_id": 5,
-        "request_text": "I need help with assembling some furniture this weekend.",
-        "userid": "hFiohCGBZ3WaQyCVbr58WQA94Oh2",
-        "username": "Herbert"
-      }
+      "photo_url": "",
+      "rate_count": 1,
+      "rate_score": 5,
+      "task_CBU": 0,
+      "task_CFU": 0,
+      "userid": "5YWLUchgSKMICGcUq6ctzynfvBS2",
+      "username": "Linh"
+    }
+    
+},
+
+"requests": {
+  
 },
 
 "login_credentials": {
-    "herbertmb540@gmail.com": {
-      "emailVerified": true,
+  "hFiohCGBZ3WaQyCVbr58WQA94Oh2": {
+    "emailAdress" : "mb540@gmail.com",
+    "emailVerified": true,
+    "idToken": "",
+    "providerId": "google.com",
+    "refreshToken": "",
+    "userid": "hFiohCGBZ3WaQyCVbr58WQA94Oh2"
+  },
+  "4M9VkGLjNUfC9wmjE25EtG5oAXG3": {
+    "emailAdress" : "xuhaichen2001@gmail.com",
+    "emailVerified": true,
+    "idToken": "",
+    "providerId": "google.com",
+    "refreshToken": "",
+    "userid": "4M9VkGLjNUfC9wmjE25EtG5oAXG3"
+  },
+  "5YWLUchgSKMICGcUq6ctzynfvBS2": {
+      "emailAdress" : "xuhaichen2001@gmail.com",
       "idToken": "",
       "providerId": "google.com",
       "refreshToken": "",
-      "userid": "hFiohCGBZ3WaQyCVbr58WQA94Oh2"
-    },
-    "xuhaichen2001@gmail.com": {
-      "emailVerified": true,
-      "idToken": "",
-      "providerId": "google.com",
-      "refreshToken": "",
-      "userid": "4M9VkGLjNUfC9wmjE25EtG5oAXG3"
-    },
-    "msslinhly@gmail.com": {
-        "emailVerified": true,
-        "idToken": "",
-        "providerId": "google.com",
-        "refreshToken": "",
-        "userid": "5YWLUchgSKMICGcUq6ctzynfvBS2"
-      }
+      "userid": "5YWLUchgSKMICGcUq6ctzynfvBS2"
+    }
 }
 }
