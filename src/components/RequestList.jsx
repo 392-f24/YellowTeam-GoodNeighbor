@@ -7,36 +7,36 @@ import AcceptanceForm from '../components/AcceptanceForm'
 import "./RequestList.css";
 
 const initialUsers = {
-    "MhzK1F5wrjYKtyxh9enputHKKRE2": {
-        "location": "",
-        "photo_url": "",
-        "rate_count": 1,
-        "rate_score": 5,
-        "task_CBU": 0,
-        "task_CFU": 0,
-        "userid": "MhzK1F5wrjYKtyxh9enputHKKRE2",
-        "username": "Diana"
-    },
-    "hFiohCGBZ3WaQyCVbr58WQA94Oh2": {
-        "location": "",
-        "photo_url": "",
-        "rate_count": 1,
-        "rate_score": 5,
-        "task_CBU": 0,
-        "task_CFU": 0,
-        "userid": "hFiohCGBZ3WaQyCVbr58WQA94Oh2",
-        "username": "Herbert"
-    },
-    "4M9VkGLjNUfC9wmjE25EtG5oAXG3": {
-        "location": "",
-        "photo_url": "",
-        "rate_count": 1,
-        "rate_score": 5,
-        "task_CBU": 0,
-        "task_CFU": 0,
-        "userid": "4M9VkGLjNUfC9wmjE25EtG5oAXG3",
-        "username": "Haichen"
-    },
+    // "MhzK1F5wrjYKtyxh9enputHKKRE2": {
+    //     "location": "",
+    //     "photo_url": "",
+    //     "rate_count": 1,
+    //     "rate_score": 5,
+    //     "task_CBU": 0,
+    //     "task_CFU": 0,
+    //     "userid": "MhzK1F5wrjYKtyxh9enputHKKRE2",
+    //     "username": "Diana"
+    // },
+    // "hFiohCGBZ3WaQyCVbr58WQA94Oh2": {
+    //     "location": "",
+    //     "photo_url": "",
+    //     "rate_count": 1,
+    //     "rate_score": 5,
+    //     "task_CBU": 0,
+    //     "task_CFU": 0,
+    //     "userid": "hFiohCGBZ3WaQyCVbr58WQA94Oh2",
+    //     "username": "Herbert"
+    // },
+    // "4M9VkGLjNUfC9wmjE25EtG5oAXG3": {
+    //     "location": "",
+    //     "photo_url": "",
+    //     "rate_count": 1,
+    //     "rate_score": 5,
+    //     "task_CBU": 0,
+    //     "task_CFU": 0,
+    //     "userid": "4M9VkGLjNUfC9wmjE25EtG5oAXG3",
+    //     "username": "Haichen"
+    // },
     "5YWLUchgSKMICGcUq6ctzynfvBS2": {
         "location": "",
         "photo_url": "",
@@ -50,72 +50,73 @@ const initialUsers = {
 };
 
 const initialRequests = [
+    // {
+    //     "accept_status": false,
+    //     "accept_userid": "",
+    //     "duration": 1,
+    //     "location": "",
+    //     "post_time": "2024-10-01T00:00:00Z",
+    //     "request_id": "-O8SWNA-j6h9MgVQ9n_s",
+    //     "request_text": "I need an onion for my soup!",
+    //     "userid": "MhzK1F5wrjYKtyxh9enputHKKRE2",
+    //     "username": "Diana"
+    // },
+    // {
+    //     "accept_status": false,
+    //     "accept_userid": "",
+    //     "duration": 5,
+    //     "location": "",
+    //     "post_time": "2024-10-01T00:00:00Z",
+    //     "request_id": 1,
+    //     "request_text": "Could someone borrow me a hammer?",
+    //     "userid": "hFiohCGBZ3WaQyCVbr58WQA94Oh2",
+    //     "username": "Herbert"
+    // },
+    // {
+    //     "accept_status": false,
+    //     "accept_userid": "",
+    //     "duration": 15,
+    //     "location": "",
+    //     "post_time": "2024-10-02T09:30:00Z",
+    //     "request_id": 2,
+    //     "request_text": "Can anyone walk my dog tomorrow morning?",
+    //     "userid": "4M9VkGLjNUfC9wmjE25EtG5oAXG3",
+    //     "username": "Haichen"
+    // },
     {
         "accept_status": false,
         "accept_userid": "",
-        "duration": 1,
-        "location": "",
-        "post_time": "2024-10-01T00:00:00Z",
-        "request_id": "-O8SWNA-j6h9MgVQ9n_s",
-        "request_text": "I need an onion for my soup!",
-        "userid": "MhzK1F5wrjYKtyxh9enputHKKRE2",
-        "username": "Diana"
-    },
-    {
-        "accept_status": false,
-        "accept_userid": "",
-        "duration": 5,
-        "location": "",
-        "post_time": "2024-10-01T00:00:00Z",
-        "request_id": 1,
-        "request_text": "Could someone borrow me a hammer?",
-        "userid": "hFiohCGBZ3WaQyCVbr58WQA94Oh2",
-        "username": "Herbert"
-    },
-    {
-        "accept_status": false,
-        "accept_userid": "",
-        "duration": 15,
-        "location": "",
-        "post_time": "2024-10-02T09:30:00Z",
-        "request_id": 2,
-        "request_text": "Can anyone walk my dog tomorrow morning?",
-        "userid": "4M9VkGLjNUfC9wmjE25EtG5oAXG3",
-        "username": "Haichen"
-    },
-    {
-        "accept_status": false,
-        "accept_userid": "",
-        "duration": 60,
+        "description": "Testing",
+        "expected_duration": 60,
         "location": "",
         "post_time": "2024-10-03T14:00:00Z",
-        "request_id": 3,
-        "request_text": "Looking for help fixing my fence. Anyone available?",
-        "userid": "5YWLUchgSKMICGcUq6ctzynfvBS2",
-        "username": "Linh"
-    },
-    {
-        "accept_status": false,
-        "accept_userid": "",
-        "duration": 10,
-        "location": "",
-        "post_time": "2024-10-04T08:15:00Z",
         "request_id": "-O8TitKag8bdO1C_0Vbm",
-        "request_text": "Can someone water my plants while I’m on vacation?",
-        "userid": "4M9VkGLjNUfC9wmjE25EtG5oAXG3",
-        "username": "Haichen"
-    },
-    {
-        "accept_status": false,
-        "accept_userid": "",
-        "duration": 45,
-        "location": "",
-        "post_time": "2024-10-05T17:45:00Z",
-        "request_id": 5,
-        "request_text": "I need help with assembling some furniture this weekend.",
-        "userid": "hFiohCGBZ3WaQyCVbr58WQA94Oh2",
-        "username": "Herbert"
+        "timer": "",
+        "userid": "5YWLUchgSKMICGcUq6ctzynfvBS2",
+        "username": "Linh Ly"
     }
+    // {
+    //     "accept_status": false,
+    //     "accept_userid": "",
+    //     "duration": 10,
+    //     "location": "",
+    //     "post_time": "2024-10-04T08:15:00Z",
+    //     "request_id": "-O8TitKag8bdO1C_0Vbm",
+    //     "request_text": "Can someone water my plants while I’m on vacation?",
+    //     "userid": "4M9VkGLjNUfC9wmjE25EtG5oAXG3",
+    //     "username": "Haichen"
+    // },
+    // {
+    //     "accept_status": false,
+    //     "accept_userid": "",
+    //     "duration": 45,
+    //     "location": "",
+    //     "post_time": "2024-10-05T17:45:00Z",
+    //     "request_id": 5,
+    //     "request_text": "I need help with assembling some furniture this weekend.",
+    //     "userid": "hFiohCGBZ3WaQyCVbr58WQA94Oh2",
+    //     "username": "Herbert"
+    // }
 ];
 
 
@@ -199,7 +200,7 @@ const RequestList = () => {
                                                 </div>
                                             </div>
                                             <small className="text-muted mb-2">{request.location || "Unknown location"}</small>
-                                            <Card.Text>{request.request_text}</Card.Text>
+                                            <Card.Text>{request.description}</Card.Text>
                                         </div>
                                     </Card.Body>
                                 </Card>
@@ -211,9 +212,9 @@ const RequestList = () => {
                                     </Modal.Header>
                                     <Modal.Body>
                                         <p>
-                                            {curretRequest.request_text}
+                                            {curretRequest.description}
                                         </p>
-                                        <AcceptanceForm request={curretRequest}/>
+                                        <AcceptanceForm request={curretRequest} handleClose={handleClose}/>
                                     </Modal.Body>
                                 </Modal>
                             </div>
