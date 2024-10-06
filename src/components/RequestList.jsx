@@ -23,6 +23,7 @@ const RequestList = () => {
 
     const requests = Object.values(requestsData); // Convert requests object to array
     const users = usersData;
+    const requestsNotAccepted = requests.filter(request => request.accept_status === false);
 
     const handleClose = () => setShow(false);
     const handleShow = (request) => {
