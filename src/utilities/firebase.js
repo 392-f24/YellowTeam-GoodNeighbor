@@ -42,7 +42,7 @@ const makeResult = (error) => {
 
 export const useDbUpdate = (path) => {
     const [result, setResult] = useState();
-    const updateData = useCallback((value) => {
+    const updateData = useCallback(async (value) => {
         console.log('Updating path:', path);
         console.log('Value before update:', value);
 
@@ -96,4 +96,10 @@ export const useDbAdd = (path) => {
     };
   
     return [add, result];
+  };
+
+  export const getRef = (path) => {
+
+
+
   };
