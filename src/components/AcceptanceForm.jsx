@@ -1,35 +1,22 @@
 import {Form, Container, Button} from 'react-bootstrap';
-import { useDbData } from "../utilities/firebase";
-import { ref, onValue, set } from 'firebase/database';
-import { ref as sRef } from 'firebase/storage';
+import { useDbUpdate } from "../utilities/firebase";
 
-const AcceptanceForm = (request) => {
-    console.log(request.request);
-    const [data, error] = useDbData(`/requests/${request.request.request_id}`);
+const AcceptanceForm = ({request, handleClose}) => {
+    const [updateData, result] = useDbUpdate(`/requests/${request.request_id}`);
 
-    if (error) return <h1>Error loading data: {error.toString()}</h1>;
-    if (data === undefined) return <h1>Loading data...</h1>;
-    if (!data) return <h1>No data found</h1>;
-
-    const AcceptRequest = (e) => {
-        e.preventDefault();
+    const updatedData = { ...(request), accept_status: true };
+    const AcceptRequest = async(evt) => {
+        evt.preventDefault();
         try{
-            set(data, {...(request.request), description: "foo"})
-            .then(() => {
-                console.log("Description updated successfully!");
-            })
-            .catch((updateError) => {
-                console.error("Error updating description:", updateError);
-            });
+            await(updateData(updatedData));
+            handleClose();
         } 
         catch (error) {
             console.error("Error occurred:", error.message);
-        //     setResult({ message: error.message, error: true });
         }
         return;
     }
 
-    // const reqRef = sRef(data, `${userid}`);
     return (
         <Container className="mt-5">
             <Form>
