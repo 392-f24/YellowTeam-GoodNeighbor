@@ -1,4 +1,5 @@
 import React from 'react';
+import './renderStars.css'
 
 // Function to render stars based on the rating
 export const renderStars = (rating) => {
@@ -10,13 +11,13 @@ export const renderStars = (rating) => {
     <>
       {/* Full stars */}
       {[...Array(fullStars)].map((_, index) => (
-        <i key={index} className="bi bi-star-fill text-warning"></i>
+        <i key={index} className="starStyle bi bi-star-fill text-warning"></i>
       ))}
       {/* Half star */}
-      {halfStar ? <i className="bi bi-star-half text-warning"></i> : null}
+      {halfStar ? <i className="starStyle bi bi-star-half text-warning"></i> : null}
       {/* Empty stars */}
       {[...Array(emptyStars)].map((_, index) => (
-        <i key={index} className="bi bi-star text-warning"></i>
+        <i key={index} className="starStyle bi bi-star text-warning"></i>
       ))}
     </>
   );

@@ -2,6 +2,7 @@ import React from 'react';
 import "./ProfilePage.css"
 import AuthButton from '../Buttons';
 import StarRate from "../starRate";
+import { renderStars } from "../renderStars";
 
 const ProfilePage = () => {
   return (
@@ -10,10 +11,15 @@ const ProfilePage = () => {
       <h1 className="user-name">Herbert Botwe</h1>
 
       {/* Stars */}
-      <div className="starStyle">
+      {/* <div className="starStyle">
         <StarRate />
 
+
+      </div>   */}
+      <div className="starStyle">
+        { renderStars(4.5)}
       </div>
+
       <p className="goodNeighborRanking">Good Neightbor Rating</p>
 
       {/* Stats */}
