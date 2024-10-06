@@ -1,4 +1,4 @@
-import { getDatabase, onValue, ref, update, get, push, set ,remove} from 'firebase/database';
+import { getDatabase, onValue, ref, update, get, push, set,remove } from 'firebase/database';
 import { useCallback, useEffect, useState } from 'react';
 import { initializeApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut as firebaseSignOut } from 'firebase/auth';
@@ -98,12 +98,6 @@ export const useDbAdd = (path) => {
     return [add, result];
   };
 
-  export const getRef = (path) => {
-
-
-
-
-  };
   export const useDbRemove = () => {
     const [result, setResult] = useState(null);
 
@@ -124,29 +118,3 @@ export const useDbAdd = (path) => {
 
     return [removeData, result];
 };
-
-
-export const useDbStatusUpdate = () => {
-    const [result, setResult] = useState();
-  
-
-    const updateStatus = useCallback(async (path, updates) => {
-      console.log('Updating path:', path);
-      console.log('Update data:', updates);
-  
-      if (!updates || typeof updates !== 'object') {
-        console.error("Invalid updates passed to updateStatus:", updates);
-        return;
-      }
-  
-      const dbRef = ref(database, path); // Pass the path dynamically
-      update(dbRef, updates)
-        .then(() => setResult({ success: true }))
-        .catch((error) => {
-          console.error("Error during Firebase update:", error);
-          setResult({ success: false, error });
-        });
-    }, []);
-  
-    return [updateStatus, result];
-  };
