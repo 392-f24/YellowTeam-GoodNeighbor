@@ -1,10 +1,11 @@
 import {Form, Container, Button} from 'react-bootstrap';
-import { useDbUpdate } from "../utilities/firebase";
+import { useDbUpdate ,useAuthState} from "../utilities/firebase";
 
 const AcceptanceForm = ({request, handleClose}) => {
     const [updateData, result] = useDbUpdate(`/requests/${request.request_id}`);
-
-    const updatedData = { ...(request), accept_status: true };
+    const [user] = useAuthState();
+    const currentUserID = user?.uid;
+    const updatedData = { ...(request), accept_status: true,accept_userid : currentUserID };
     const AcceptRequest = async(evt) => {
         evt.preventDefault();
         try{
