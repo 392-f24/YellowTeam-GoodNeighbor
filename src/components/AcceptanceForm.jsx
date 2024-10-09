@@ -1,6 +1,8 @@
 import {Form, Container, Button} from 'react-bootstrap';
 import { useDbUpdate ,useAuthState} from "../utilities/firebase";
 
+import "./AcceptanceForm.css"
+
 const AcceptanceForm = ({request, handleClose}) => {
     const [updateData, result] = useDbUpdate(`/requests/${request.request_id}`);
     const [user] = useAuthState();
@@ -20,7 +22,7 @@ const AcceptanceForm = ({request, handleClose}) => {
 
     return (
         <Container className="mt-5">
-            <Form>
+            <Form className="custom-form" style={{ background: '#D1E7DD' }}>
                 {/* Phone Number Input */}
                 <Form.Group className="mb-3" controlId="formPhoneNumber">
                     <Form.Label>Phone Number</Form.Label>
@@ -48,7 +50,10 @@ const AcceptanceForm = ({request, handleClose}) => {
 
                 {/* Accept Button */}
                 <div className="d-flex justify-content-center">
-                    <Button variant="primary" type="submit" onClick={AcceptRequest}>
+                    <Button 
+                    className="custom-button" 
+                    type="submit" 
+                    onClick={AcceptRequest}>
                         Accept Request
                     </Button>
                 </div>

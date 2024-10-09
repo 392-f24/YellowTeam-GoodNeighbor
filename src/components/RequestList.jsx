@@ -94,10 +94,10 @@ const RequestList = () => {
             {/* Modal outside the map to avoid rendering multiple modals */}
             {currentRequest && (
                 <Modal show={show} onHide={handleClose}>
-                    <Modal.Header closeButton>
+                    <Modal.Header style={{ background: '#EEEEEE' }} closeButton>
                         <Modal.Title>{currentRequest.username} ({currentRequest.expected_duration} min remaining)</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>
+                    <Modal.Body >
                         <p>{currentRequest.description}</p>
                         <AcceptanceForm request={currentRequest} handleClose={handleClose} />
                     </Modal.Body>
