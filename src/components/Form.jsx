@@ -10,11 +10,12 @@ import './Form.css'
 const TextOnlyForm = ({text, setText, placeholder}) => (
         <Form.Control
             as="textarea"
-            rows={4}                // Number of rows in the textarea
-            value={text}            // Bind the textarea value to state
-            onChange={(e) => setText(e.target.value)}  // Update state on change
+            rows={4}
+            value={text}
+            onChange={(e) => setText(e.target.value)}  
+            className='text-only'
             placeholder={placeholder}
-            style={{ height: 'auto' }}
+            style={{ width: '90%', height: 'auto' }}
         />
 );
 
