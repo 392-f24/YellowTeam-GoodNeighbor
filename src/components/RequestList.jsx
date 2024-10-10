@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { DropdownButton, Dropdown, Card, Button, Modal } from 'react-bootstrap';
-import AcceptanceForm from '../components/AcceptanceForm';
+import { DropdownButton, Dropdown, Card } from 'react-bootstrap';
 import { useDbData } from '../utilities/firebase';
 import "./RequestList.css";
+import AcceptRequestModal from "./Modal"
 
 const RequestList = () => {
     const [sortBy, setSortBy] = useState('timeRemaining');
@@ -92,17 +92,7 @@ const RequestList = () => {
             </div>
 
             {/* Modal outside the map to avoid rendering multiple modals */}
-            {currentRequest && (
-                <Modal show={show} onHide={handleClose}>
-                    <Modal.Header style={{ background: '#EEEEEE' }} closeButton>
-                        <Modal.Title>{currentRequest.username} ({currentRequest.expected_duration} min remaining)</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body >
-                        <p>{currentRequest.description}</p>
-                        <AcceptanceForm request={currentRequest} handleClose={handleClose} />
-                    </Modal.Body>
-                </Modal>
-            )}
+            {currentRequest && <AcceptRequestModal show={show} handleClose={handleClose} currentRequest={currentRequest} />}
         </div>
     );
 };

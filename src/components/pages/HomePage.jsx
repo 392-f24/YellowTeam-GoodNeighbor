@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import "./HomePage.css";
 
 import RequestList from "../RequestList"
+import TextOnlyForm from "../Form";
+import { GreenButton } from "../Buttons";
 
 const HomePage = () => {
   const [description, setDescription] = useState(''); 
@@ -13,27 +15,11 @@ const HomePage = () => {
   };
 
   return (
-    <div className='homepage'>
-      {/* <nav class="navbar fixed-bottom navbar-light bg-light">
-        <div class="container">
-          <a class="navbar-brand" href="#">Fixed bottom</a>
-        </div>
-      </nav> */}
-      
-
+    <div className='homepage'>      
       <h5>New Request</h5>
-      <textarea
-        placeholder="How can your neighbors help?" 
-        value={description} 
-        onChange={(e) => setDescription(e.target.value)} 
-        className="form-control"
-        rows="4" 
-        style={{ height: 'auto' }} 
-      />
-      <button onClick={DirectToRequestForm} className="request-submit-button">Submit</button>
-
+      <TextOnlyForm text={description} setText={setDescription} placeholder={'How can your neighbors help?'}/>
+      <GreenButton onClick={DirectToRequestForm} text={'Submit'}/>
       <RequestList />
-
     </div>
   );
 };
