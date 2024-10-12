@@ -27,7 +27,7 @@ const ProfilePage = () => {
   }
 
   if (!usersData) {
-    return <p>Loading user-specific data...</p>;  // Handle loading state for usersData
+    return <p>Loading user-specific data...</p>; 
   }
   if (!user) {
     return <p>Loading user data...</p>;
@@ -63,7 +63,14 @@ const ProfilePage = () => {
         setOpenModal(true);
       }}> Edit Profile</button>
 
-      {openModal && <EditProfileModal closeModal={setOpenModal} />}
+      {openModal && (
+        <EditProfileModal
+          closeModal={() => setOpenModal(false)}
+          userId={user_id} //passes userId to modal, avoids redundancy
+          // initialLocation={usersData.location} // Pass user's initial location
+        />
+      )}      
+      
       <AuthButton/>
     </div>
   );
