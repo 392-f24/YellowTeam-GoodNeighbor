@@ -1,9 +1,13 @@
 import React from 'react';
+import { useState } from "react";
+
 import "./ProfilePage.css"
 import AuthButton from '../Buttons';
 import StarRate from "../starRate";
 import { renderStars } from "../renderStars";
 import { useAuthState, useDbData } from '../../utilities/firebase';
+import EditProfileModal from '../EditProfileModal'
+
 
 const ProfilePage = () => {
 
@@ -12,6 +16,11 @@ const ProfilePage = () => {
   const user_id = user ? user.uid : "TESTING";
 
   const [usersData, usersError] = useDbData(`users/${user_id}`);
+
+
+  //edit profile
+  const [openModal, setOpenModal] = useState(false);
+
 
   if (!user) {
     return <p>Loading user data...</p>;
@@ -23,6 +32,7 @@ const ProfilePage = () => {
   if (!user) {
     return <p>Loading user data...</p>;
   }
+
 
   return (
     <div className='profile-page'>
@@ -48,6 +58,12 @@ const ProfilePage = () => {
         </div>
 
       </div>
+      {/* //edit profile button */}
+      <button className="white-custom-button" onClick={() => {
+        setOpenModal(true);
+      }}> Edit Profile</button>
+
+      {openModal && <EditProfileModal closeModal={setOpenModal} />}
       <AuthButton/>
     </div>
   );

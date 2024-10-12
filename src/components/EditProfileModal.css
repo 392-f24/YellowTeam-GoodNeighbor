@@ -1,0 +1,144 @@
+.modalBackground {
+    width: 100vw;
+    height: 100vh;
+    /* background-color: rgba(200, 200, 200); */
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modalContainer {
+    width: 80%;
+    height: auto;
+    border-radius: 12px;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    display: grid;
+    grid-row: 1fr 2fr 2fr 1fr;
+    grid-column: 1fr 1fr;
+    /* flex-direction: column; */
+    padding: 25px;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .title {
+    /* display: inline-block; */
+    grid-row: 1;
+    text-align: center;
+    margin-top: 10px;
+    font-family: "Hepta Slab-Regular";
+  }
+  
+  .titleCloseBtn {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .titleCloseBtn button {
+    background-color: transparent;
+    border: none;
+    font-size: 25px;
+    cursor: pointer;
+  }
+
+  .body {
+    display: flex; /* Use flexbox to center the content */
+    flex-direction: column; /* Ensure content stacks vertically */
+    justify-content: center; /* Center vertically */
+    align-items: center; /* Center horizontally */
+    width: 100%; /* Ensure it takes up full width */
+    text-align: center; /* Ensure text is centered */
+}
+
+  
+
+  
+  .address {
+    grid-row: 2;
+    display: grid;
+    grid-template-columns: 1fr; /* Single column for first 3 inputs */
+    font-family: "Hepta Slab-Regular";
+    width: 80%; 
+    margin-top: 20px;
+
+    justify-content: center;
+    align-items: center;
+    justify-self: center;
+    text-align: center;
+  }
+  .neighborhood {
+
+    grid-row: 3;
+    font-family: "Hepta Slab-Regular";
+    margin-top: 30px;
+    width: 80%;
+    /* display: flex; */
+    /* flex-direction: row; */
+    /* justify-content: center;
+    align-items: center; */
+    justify-self: center;
+    /* font-size: 1.7rem; */
+    text-align: center;
+  }
+  
+  .modalContainer .footer {
+    flex: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modalContainer .footer button {
+    width: auto;
+    height: auto;
+    margin: 10px;
+    border: none;
+    background-color: cornflowerblue;
+    color: white;
+    border-radius: 8px;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 10px;
+  }
+  
+  #cancelBtn {
+    background-color: #ABABAB;
+  }
+  #cancelBtn:hover {
+    background-color: #EBC310;
+  }
+  #saveBtn {
+    background-color: #0F8176;
+  }
+  #saveBtn:hover {
+    background-color: #EBC310;
+  }
+
+  .input {
+    border-radius: 10px;
+    margin: 10px;
+    width: 100%;
+    padding: 5px;
+    padding-left: 10px;
+  }
+    .fullWidth {
+    grid-column: 1 / span 2; 
+    }
+
+    .twoColumns {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr; 
+        gap: 10px;
+
+    }
+
+    .halfWidth {
+        width: 100%; 
+    }
+
+.smallText {
+    font-size: 14px;
+    }
