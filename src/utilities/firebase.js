@@ -139,3 +139,28 @@ export const useDbAdd = (path) => {
     return [removeData, result];
 };
 
+
+export const useDbStatusUpdate = () => {
+    const [result, setResult] = useState();
+  
+
+    const updateStatus = useCallback(async (path, updates) => {
+      console.log('Updating path:', path);
+      console.log('Update data:', updates);
+  
+      if (!updates || typeof updates !== 'object') {
+        console.error("Invalid updates passed to updateStatus:", updates);
+        return;
+      }
+  
+      const dbRef = ref(database, path); // Pass the path dynamically
+      update(dbRef, updates)
+        .then(() => setResult({ success: true }))
+        .catch((error) => {
+          console.error("Error during Firebase update:", error);
+          setResult({ success: false, error });
+        });
+    }, []);
+  
+    return [updateStatus, result];
+  };

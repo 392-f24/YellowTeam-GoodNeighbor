@@ -1,7 +1,24 @@
-import {Form, Container, Button} from 'react-bootstrap';
+// defining various forms
+import React, { useState } from 'react';
+import {Form, Container} from 'react-bootstrap';
+// import {Form, Container, Button} from 'react-bootstrap';
 import { useDbUpdate ,useAuthState} from "../utilities/firebase";
 
-const AcceptanceForm = ({request, handleClose}) => {
+import { GreyButton } from "./Buttons";
+import './Form.css'
+
+const TextOnlyForm = ({text, setText, placeholder}) => (
+        <Form.Control
+            as="textarea"
+            rows={4}                // Number of rows in the textarea
+            value={text}            // Bind the textarea value to state
+            onChange={(e) => setText(e.target.value)}  // Update state on change
+            placeholder={placeholder}
+            style={{ height: 'auto' }}
+        />
+);
+
+export const AcceptanceForm = ({request, handleClose}) => {
     const [updateData, result] = useDbUpdate(`/requests/${request.request_id}`);
     const [user] = useAuthState();
     const currentUserID = user?.uid;
@@ -19,8 +36,9 @@ const AcceptanceForm = ({request, handleClose}) => {
     }
 
     return (
+
         <Container className="mt-5">
-            <Form>
+            <Form className="custom-form" style={{ background: '#D1E7DD' }}>
                 {/* Phone Number Input */}
                 <Form.Group className="mb-3" controlId="formPhoneNumber">
                     <Form.Label>Phone Number</Form.Label>
@@ -48,12 +66,12 @@ const AcceptanceForm = ({request, handleClose}) => {
 
                 {/* Accept Button */}
                 <div className="d-flex justify-content-center">
-                    <Button variant="primary" type="submit" onClick={AcceptRequest}>
-                        Accept Request
-                    </Button>
+                    <GreyButton onClick={AcceptRequest} text={'Accept Request'}/>
                 </div>
             </Form>
         </Container>
     );
+
 }
-export default AcceptanceForm
+
+export default TextOnlyForm

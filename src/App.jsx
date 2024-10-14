@@ -32,7 +32,7 @@ const App = () => {
           <SignInPage />  // Show sign-in page if not authenticated
         ) : (
           <>
-            <div className="flex-grow"> 
+            <div className="content flex-grow"> 
               <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/requests" element={<RequestsPage />} />
