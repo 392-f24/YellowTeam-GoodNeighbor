@@ -6,7 +6,7 @@ import { useAuthState } from '../../utilities/firebase';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { push, ref } from 'firebase/database';
 import { database } from '../../utilities/firebase';
-import { RequestFormForm } from "../Form";
+import { RequestForm } from "../Form";
 import { useState } from 'react';
 
 const InputField = ({ name, label, state, change }) => (
@@ -117,7 +117,7 @@ const RequestFormPage = () => {
   return (
     <div className="requestform-page">
       <h4 className='title'>New Request</h4>
-      <RequestFormForm 
+      <RequestForm 
         data={data} 
         setDescription={setDescription} 
         setTimer={setTimer} 

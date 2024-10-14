@@ -208,7 +208,7 @@ const MultiSelect = ({pickupPref, setPickupPref}) => {
     );
 };
   
-export const RequestFormForm = ({data, setDescription, setTimer, pickupPref, setPickupPref, onClick}) => {
+export const RequestForm= ({data, setDescription, setTimer, pickupPref, setPickupPref, onClick}) => {
     const location = useLocation();
     // const [description, setDescription] = useState('');
     // setTest("Hello")
