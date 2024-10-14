@@ -34,12 +34,17 @@ export const useDbData = (path) => {
     return [data, error];
 };
 
+// Helper function to format result, use in useDbUpdate to format results or errors
 const makeResult = (error) => {
     const timestamp = Date.now();
     const message = error?.message || `Updated: ${new Date(timestamp).toLocaleString()}`;
     return { timestamp, error, message };
 };
 
+// Hook used to update database, example use:
+// const [udateData, result] = useDbUpdate('requests');
+// In this example, the 'updateData' variable refers to the function defined within this hook,
+// allowing you to change existing data in the path passed in useDbUpdate('').
 export const useDbUpdate = (path) => {
     const [result, setResult] = useState();
     const updateData = useCallback(async (value) => {
@@ -65,12 +70,16 @@ export const useDbUpdate = (path) => {
 
 export { firebase, database, auth };
 
+//Sign in pop up handler
 export const signInWithGoogle = () => {
     signInWithPopup(auth, new GoogleAuthProvider());
 };
 
+// Signout handler
 export const signOut = () => firebaseSignOut(auth);
 
+// When useAuthState() is called, will return an object that is the current user
+// Example use: const [user] = useAuthState();
 export const useAuthState = () => {
     const [user, setUser] = useState();
 
@@ -81,6 +90,11 @@ export const useAuthState = () => {
     return [user];
 };
 
+// Custom hook to add a new entry to the database.
+// Example usage:
+// const [add, result] = useDbAdd('requests');
+// In this example, the 'add' variable refers to the function defined within this hook,
+// allowing you to add new data to the 'requests' path in the database.
 export const useDbAdd = (path) => {
     const [result, setResult] = useState(null);
   
