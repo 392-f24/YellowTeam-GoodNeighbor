@@ -1,23 +1,14 @@
 import React from 'react';
-import { useFormData } from '../utilities/useFormData';
-import { useDbAdd } from '../utilities/firebase';
+import { useFormData } from '../../utilities/useFormData';
+import { useDbAdd } from '../../utilities/firebase';
 import './RequestForm.css'
-import { useAuthState } from '../utilities/firebase';
+import { useAuthState } from '../../utilities/firebase';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { push, ref } from 'firebase/database';
-import { database } from '../utilities/firebase';
+import { database } from '../../utilities/firebase';
+import { RequestFormForm } from "../Form";
+import { useState } from 'react';
 
-// const validateCourseData = (key, val) => {
-//   switch (key) {
-//     case 'title':
-//       return val.length >= 2 ? '' : 'must be at least two characters';
-//     case 'meets':
-//       const regex = /^(M|Tu|W|Th|F|Sa|Su){1,3} \d{1,2}:\d{2}-\d{1,2}:\d{2}$/;
-//       return val === '' || regex.test(val) ? '' : 'must contain days and start-end, e.g., MWF 12:00-13:20';
-//     default:
-//       return '';
-//   }
-// };
 const InputField = ({ name, label, state, change }) => (
   <div className="mb-3">
     <label htmlFor={name} className="form-label">{label}</label>
@@ -51,7 +42,7 @@ const ButtonBar = ({ onCancel }) => (
   </div>
 );
 
-const RequestForm = () => {
+const RequestFormPage = () => {
   const location = useLocation();
   const navigate = useNavigate(); 
   const initialValues = {
@@ -60,7 +51,8 @@ const RequestForm = () => {
     timer: ''
   };
 
-  const [formState, change] = useFormData(null, initialValues); // Pass initial values to useFormData
+  // const [formState, change] = useFormData(null, initialValues); // Pass initial values to useFormData
+  const [formState, change] = useFormData(null);
   const [add, result] = useDbAdd('requests');
   const [user] = useAuthState();
 
@@ -77,6 +69,25 @@ const RequestForm = () => {
     username: user ? user.displayName || "Anonymous" : "Anonymous",
   };
 
+  const [description, setDescription] = useState('');
+  const [timer, setTimer] = useState('');
+  const [pickupPref, setPickupPref] = useState('');
+
+  const data = {
+    description: description,
+    timer: timer, 
+    pickup_pref: pickupPref,
+    expected_duration: "",
+    accept_status: false,
+    accept_userid: "",
+    location: "",
+    post_time: new Date().toISOString(),
+    request_id: newRequestId,
+    userid: user ? user.uid : "TESTING",
+    username: user ? user.displayName || "Anonymous" : "Anonymous",
+  };
+
+
   const submit = async (evt) => {
     evt.preventDefault();
 
@@ -84,8 +95,10 @@ const RequestForm = () => {
 
     if (Object.keys(errors).length === 0) {
       try {
-        await add({ ...formState.values, ...hardcodedData }, newRequestId);
-        console.log('Form submitted:', { ...formState.values, ...hardcodedData });
+        // await add({ ...formState.values, ...hardcodedData }, newRequestId);
+        // console.log('Form submitted:', { ...formState.values, ...hardcodedData });
+        await add({ ...data }, newRequestId);
+        console.log('Form submitted:', { ...data });
         navigate('/'); // Navigate back to homepage after successful submission
       } catch (error) {
         console.error("Error saving data:", error);
@@ -97,19 +110,31 @@ const RequestForm = () => {
     navigate('/'); // Navigate back to homepage when cancel is clicked
   };
 
+  const test = async (evt) => {
+    console.log(data);
+  }
+
   return (
     <div className="requestform-page">
-      <h4>New Request</h4>
+      <h4 className='title'>New Request</h4>
+      <RequestFormForm 
+        data={data} 
+        setDescription={setDescription} 
+        setTimer={setTimer} 
+        pickupPref={pickupPref}
+        setPickupPref={setPickupPref}
+        onClick={submit}/>
+      {/*
       <form onSubmit={submit} noValidate className={formState.errors ? 'was-validated' : null}>
         <InputField name="description" label="Description" state={formState} change={change} />
         <InputField name="expected_duration" label="Expected Duration" state={formState} change={change} />
         <InputField name="timer" label="Timer" state={formState} change={change} />
         <ButtonBar onCancel={handleCancel} /> {/* Pass handleCancel to ButtonBar */}
-        {result && result.error && <div className="alert alert-danger">{result.message}</div>}
+        {/*{result && result.error && <div className="alert alert-danger">{result.message}</div>}
         {result && !result.error && <div className="alert alert-success">{result.message}</div>}
-      </form>
+      </form>*/}
     </div>
   );
 };
 
-export default RequestForm;
+export default RequestFormPage;
