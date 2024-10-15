@@ -50,7 +50,7 @@ const RequestList = () => {
 
     return (
         <div className="w-100">
-            <div className="d-flex justify-content-center align-items-center mb-3">
+            <div className="request-list-header d-flex justify-content-center align-items-center mb-3">
                 <h2 className="mb-0 me-2">Request List</h2>
                 <DropdownButton id="dropdown-basic" variant="secondary" size="sm" title="Sort by">
                     <Dropdown.Item onClick={() => handleSort('timeRemaining')}>Time Remaining</Dropdown.Item>
@@ -59,7 +59,7 @@ const RequestList = () => {
                 </DropdownButton>
             </div>
 
-            <div className="flex-grow-1 overflow-auto px-3 py-2" style={{ maxHeight: 'calc(100vh - 150px)' }}>
+            <div className="flex-grow-1 overflow-auto px-3 py-2">
                 <div className="row">
                     {requestsNotAccepted.map(request => {
                         const user = users[request.userid]; // Get user info for each request
