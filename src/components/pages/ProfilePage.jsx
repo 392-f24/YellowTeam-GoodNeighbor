@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import "./ProfilePage.css"
 import AuthButton from '../Buttons';
@@ -7,7 +7,7 @@ import StarRate from "../starRate";
 import { renderStars } from "../renderStars";
 import { useAuthState, useDbData } from '../../utilities/firebase';
 import EditProfileModal from '../EditProfileModal'
-
+import CreateUser from './CreateUser'
 
 const ProfilePage = () => {
 
@@ -16,6 +16,16 @@ const ProfilePage = () => {
   const user_id = user ? user.uid : "TESTING";
 
   const [usersData, usersError] = useDbData(`users/${user_id}`);
+
+  //for waiting until the information is fetched. If timed out, then go to create Profile button.
+  const [isDelayed, setIsDelayed] = useState(false); // State to control delayed rendering
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsDelayed(true); 
+    }, 5000); 
+
+    return () => clearTimeout(timer); 
+  }, []);
 
 
   //edit profile
@@ -27,7 +37,31 @@ const ProfilePage = () => {
   }
 
   if (!usersData) {
-    return <p>Loading user-specific data...</p>; 
+    return (
+      <div className='profile-page'>
+        {isDelayed ? (
+          <>
+          <p>It seems like you have not made an account with us. Create your profile now!</p>
+          {/* <AuthButton/> */}
+          <button className="white-custom-button" onClick={() => {
+          setOpenModal(true);
+        }}>Create Profile</button>
+
+        {openModal && (
+          <CreateUser
+            closeModal={() => setOpenModal(false)}
+            userId={user_id} // Pass userId to CreateUser to create profile with correct ID
+          />
+
+        )}
+      </> ) : (
+        <p>Loading user data...</p>
+      )}
+      {/* <AuthButton/> */}
+
+      </div>
+    )
+    // return <p>User data loaded!</p>; 
   }
   if (!user) {
     return <p>Loading user data...</p>;
@@ -42,7 +76,10 @@ const ProfilePage = () => {
       {/* Stars */}
       <div className="starStyle">
         { renderStars(usersData.rate_score) }  {/* Pass the rateScore to renderStars */}
+        <p className="ratingCountContainer">{usersData.rate_count}</p>
       </div>
+              
+      
 
       <p className="goodNeighborRanking">Good Neightbor Rating</p>
 

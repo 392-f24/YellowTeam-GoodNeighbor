@@ -16,7 +16,20 @@
 
 .starStyle {
     color: #FFC800;
-    /* height: 50px; */
+    height:10px;
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    /* align-content: center; */
+}
+.ratingCountContainer {
+    color: #D8A353;
+    padding-left: 10px;
+    text-decoration: underline;
+    text-align: center;
+    padding-top: 15px;
+
 }
 
 .goodNeighborRanking {
