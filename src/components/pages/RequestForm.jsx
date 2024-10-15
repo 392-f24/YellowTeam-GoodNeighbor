@@ -9,39 +9,6 @@ import { database } from '../../utilities/firebase';
 import { RequestForm } from "../Form";
 import { useState } from 'react';
 
-const InputField = ({ name, label, state, change }) => (
-  <div className="mb-3">
-    <label htmlFor={name} className="form-label">{label}</label>
-    {name === 'description' ? (
-      <textarea
-        className={`form-control ${state.errors?.[name] ? 'is-invalid' : ''}`}
-        id={name}
-        name={name}
-        value={state.values?.[name] || ''}
-        onChange={change}
-        rows="4" // You can adjust this
-        style={{ height: 'auto' }} 
-      />
-    ) : (
-      <input
-        className={`form-control ${state.errors?.[name] ? 'is-invalid' : ''}`}
-        id={name}
-        name={name}
-        value={state.values?.[name] || ''}
-        onChange={change}
-      />
-    )}
-    <div className="invalid-feedback">{state.errors?.[name]}</div>
-  </div>
-);
-
-const ButtonBar = ({ onCancel }) => (
-  <div>
-    <button type="submit" className="button">Submit</button>
-    <button type="button" className="button" onClick={onCancel}>Cancel</button>
-  </div>
-);
-
 const RequestFormPage = () => {
   const location = useLocation();
   const navigate = useNavigate(); 
@@ -51,23 +18,11 @@ const RequestFormPage = () => {
     timer: ''
   };
 
-  // const [formState, change] = useFormData(null, initialValues); // Pass initial values to useFormData
-  const [formState, change] = useFormData(null);
-  const [add, result] = useDbAdd('requests');
+  const [formState] = useFormData(null);
+  const [add] = useDbAdd('requests');
   const [user] = useAuthState();
 
-
   const newRequestId = push(ref(database, 'requests')).key;
-
-  const hardcodedData = {
-    accept_status: false,
-    accept_userid: "",
-    location: "",
-    post_time: new Date().toISOString(),
-    request_id: newRequestId,
-    userid: user ? user.uid : "TESTING",
-    username: user ? user.displayName || "Anonymous" : "Anonymous",
-  };
 
   const [description, setDescription] = useState('');
   const [timer, setTimer] = useState('');
@@ -95,8 +50,6 @@ const RequestFormPage = () => {
 
     if (Object.keys(errors).length === 0) {
       try {
-        // await add({ ...formState.values, ...hardcodedData }, newRequestId);
-        // console.log('Form submitted:', { ...formState.values, ...hardcodedData });
         await add({ ...data }, newRequestId);
         console.log('Form submitted:', { ...data });
         navigate('/'); // Navigate back to homepage after successful submission
@@ -105,14 +58,6 @@ const RequestFormPage = () => {
       }
     }
   };
-
-  const handleCancel = () => {
-    navigate('/'); // Navigate back to homepage when cancel is clicked
-  };
-
-  const test = async (evt) => {
-    console.log(data);
-  }
 
   return (
     <div className="requestform-page">
@@ -124,15 +69,6 @@ const RequestFormPage = () => {
         pickupPref={pickupPref}
         setPickupPref={setPickupPref}
         onClick={submit}/>
-      {/*
-      <form onSubmit={submit} noValidate className={formState.errors ? 'was-validated' : null}>
-        <InputField name="description" label="Description" state={formState} change={change} />
-        <InputField name="expected_duration" label="Expected Duration" state={formState} change={change} />
-        <InputField name="timer" label="Timer" state={formState} change={change} />
-        <ButtonBar onCancel={handleCancel} /> {/* Pass handleCancel to ButtonBar */}
-        {/*{result && result.error && <div className="alert alert-danger">{result.message}</div>}
-        {result && !result.error && <div className="alert alert-success">{result.message}</div>}
-      </form>*/}
     </div>
   );
 };

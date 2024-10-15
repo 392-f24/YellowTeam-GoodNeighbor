@@ -148,23 +148,12 @@ const TimeSelector = ({setTimer}) => {
                     </DropdownButton>
                 </Col>
             </Row>
-
-            {/* <Row className="mt-3 justify-content-center">
-                <Col xs="auto">
-                    <p>
-                        Selected Time: Day {selectedDay || 'No day'} at{' '}
-                        {selectedHour !== '' ? `${selectedHour} hour(s)` : 'No hour'} and{' '}
-                        {selectedMinute !== '' ? `${selectedMinute} minute(s)` : 'No minute'}
-                    </p>
-                </Col>
-            </Row> */}
         </Container>
     );
 };
 
 const MultiSelect = ({pickupPref, setPickupPref}) => {
     const options = ['Pick up', 'Drop off', 'Meet up'];
-    const [selected, setSelected] = useState([]);
     const [meetUpLocation, setMeetUpLocation] = useState(''); // Changed variable name
 
     // Handle select logic
@@ -210,8 +199,6 @@ const MultiSelect = ({pickupPref, setPickupPref}) => {
   
 export const RequestForm= ({data, setDescription, setTimer, pickupPref, setPickupPref, onClick}) => {
     const location = useLocation();
-    // const [description, setDescription] = useState('');
-    // setTest("Hello")
     console.log(data.pickup_pref);
 
     useEffect(() => {
