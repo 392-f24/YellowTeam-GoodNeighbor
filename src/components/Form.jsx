@@ -1,7 +1,6 @@
 // defining various forms
 import React, { useState, useEffect } from 'react';
 import {Form, Container, Row, Col, Dropdown, DropdownButton } from 'react-bootstrap';
-// import {Form, Container, Button} from 'react-bootstrap';
 import { useDbUpdate ,useAuthState} from "../utilities/firebase";
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
@@ -198,8 +197,6 @@ const MultiSelect = ({pickupPref, setPickupPref}) => {
 };
   
 export const RequestForm= ({data, setDescription, setTimer, pickupPref, setPickupPref, onClick}) => {
-    const location = useLocation();
-    console.log(data.pickup_pref);
 
     useEffect(() => {
         const { description } = location.state || {};
