@@ -37,7 +37,7 @@ const RequestFormPage = () => {
     delivery_pref: deliveryPref,
     expected_duration: "",
     accept_status: false,
-    status_options: "Open",
+    request_status: "Open",
     accept_userid: "",
     location: "",
     post_time: new Date().toISOString(),
