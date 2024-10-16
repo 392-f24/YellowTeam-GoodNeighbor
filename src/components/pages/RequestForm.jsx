@@ -7,16 +7,19 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { push, ref } from 'firebase/database';
 import { database } from '../../utilities/firebase';
 import { RequestForm } from "../Form";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const RequestFormPage = () => {
   const location = useLocation();
   const navigate = useNavigate(); 
-  const initialValues = {
-    description: location.state?.description || '',
-    expected_duration: '',
-    timer: ''
-  };
+
+  useEffect(() => {
+    const { description } = location.state || {};
+    console.log(description)
+    if (description) {
+        setDescription(description);
+    }
+  }, [location.state]);
 
   const [formState] = useFormData(null);
   const [add] = useDbAdd('requests');
@@ -26,14 +29,15 @@ const RequestFormPage = () => {
 
   const [description, setDescription] = useState('');
   const [timer, setTimer] = useState('');
-  const [pickupPref, setPickupPref] = useState('');
+  const [deliveryPref, setDeliveryPref] = useState('');
 
   const data = {
     description: description,
     timer: timer, 
-    pickup_pref: pickupPref,
+    delivery_pref: deliveryPref,
     expected_duration: "",
     accept_status: false,
+    status_options: "Open",
     accept_userid: "",
     location: "",
     post_time: new Date().toISOString(),
@@ -66,8 +70,8 @@ const RequestFormPage = () => {
         data={data} 
         setDescription={setDescription} 
         setTimer={setTimer} 
-        pickupPref={pickupPref}
-        setPickupPref={setPickupPref}
+        deliveryPref={deliveryPref}
+        setDeliveryPref={setDeliveryPref}
         onClick={submit}/>
     </div>
   );
