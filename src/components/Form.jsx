@@ -1,11 +1,10 @@
 // defining various forms
 import React, { useState, useEffect } from 'react';
-import {Form, Container, Row, Col, Dropdown, DropdownButton } from 'react-bootstrap';
+import {Form, Container, Row, Col, Dropdown, DropdownButton, Alert } from 'react-bootstrap';
 import { useDbUpdate ,useAuthState} from "../utilities/firebase";
-import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
-import { GreyButton, GreenButton } from "./Buttons";
+import { GreyButton, GreenButton, GreyOutlineButton } from "./Buttons";
 import './Form.css'
 
 export const TextOnlyForm = ({text, setText, placeholder}) => (
@@ -24,18 +23,40 @@ export const AcceptanceForm = ({request, handleClose}) => {
     const [updateData, result] = useDbUpdate(`/requests/${request.request_id}`);
     const [user] = useAuthState();
     const currentUserID = user?.uid;
-    const updatedData = { ...(request), accept_status: true,accept_userid : currentUserID };
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [msg, setMsg] = useState('');
+    const [deliveryOption, setDeliveryOption] = useState(''); // State to track the selected option
+    const [err, setErr] = useState(false);
+
+    const updatedData = { ...(request), 
+                        status_options: "Pending", 
+                        accept_status: true, 
+                        accept_userid : currentUserID,
+                        delivery_pref: deliveryOption,
+                        accept_phone_number: phoneNumber,
+                        accept_msp: msg
+                     };
     const AcceptRequest = async(evt) => {
         evt.preventDefault();
-        try{
-            await(updateData(updatedData));
-            handleClose();
-        } 
-        catch (error) {
-            console.error("Error occurred:", error.message);
+        if(deliveryOption !== ''){
+            try{
+                await(updateData(updatedData));
+                handleClose();
+            } 
+            catch (error) {
+                console.error("Error occurred:", error.message);
+            }
+        }
+        else {
+            setErr(true);
         }
         return;
     }
+
+    const handleButtonClick = (option) => {
+        setErr(false);
+        setDeliveryOption(deliveryOption === option ? '' : option);
+    };
 
     return (
 
@@ -48,6 +69,7 @@ export const AcceptanceForm = ({request, handleClose}) => {
                         className="w-100"
                         type="phone number"
                         placeholder="Phone number"
+                        onChange={(e) => setPhoneNumber(e.target.value)} 
                         autoFocus
                     />
                 </Form.Group>
@@ -63,9 +85,33 @@ export const AcceptanceForm = ({request, handleClose}) => {
                         rows={5} 
                         style={{ minHeight: '100px' }}
                         placeholder="Write your message"
+                        onChange={(e) => setMsg(e.target.value)}
                     />
                 </Form.Group>
+                <Form.Group
+                    className="mb-3"
+                    controlId="formOptions"
+                >
+                    <Form.Label>Deliver option (choose one): </Form.Label>
+                    <div className="d-flex flex-wrap">
+                        {(request.delivery_pref).map( (option) => {
+                            return(
+                                <div className="me-2 mb-2">
+                                    <GreyOutlineButton 
+                                        onClick={() => handleButtonClick(option)} 
+                                        text={option}
+                                        disabled={deliveryOption !== '' && deliveryOption !== option}/>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </Form.Group>
 
+                {err && (
+                        <Alert variant="danger" className="mb-2 small-alert">
+                        Please select a delivery option. 
+                        </Alert>
+                )}
                 {/* Accept Button */}
                 <div className="d-flex justify-content-center">
                     <GreyButton onClick={AcceptRequest} text={'Accept Request'}/>
@@ -151,13 +197,13 @@ const TimeSelector = ({setTimer}) => {
     );
 };
 
-const MultiSelect = ({pickupPref, setPickupPref}) => {
+const MultiSelect = ({deliveryPref, setDeliveryPref}) => {
     const options = ['Pick up', 'Drop off', 'Meet up'];
     const [meetUpLocation, setMeetUpLocation] = useState(''); // Changed variable name
 
     // Handle select logic
     const handleSelect = (option) => {
-        setPickupPref((prevSelected) => {
+        setDeliveryPref((prevSelected) => {
             if (prevSelected.includes(option)) {
                 return prevSelected.filter((item) => item !== option); // Deselect the option
             } else {
@@ -174,11 +220,11 @@ const MultiSelect = ({pickupPref, setPickupPref}) => {
                     key={option}
                     type="checkbox"
                     label={option}
-                    checked={pickupPref.includes(option)}
+                    checked={deliveryPref.includes(option)}
                     onChange={() => handleSelect(option)} // Handle checkbox change
                 />
             ))}
-            {pickupPref.includes('Meet up') && (
+            {deliveryPref.includes('Meet up') && (
                 <Form.Group className="mt-3">
                     <Form.Label>Meet-up Location:</Form.Label>
                     <Form.Control
@@ -190,20 +236,14 @@ const MultiSelect = ({pickupPref, setPickupPref}) => {
                 </Form.Group>
             )}
             <div className="mt-3">
-                <strong>Selected: </strong>{pickupPref.length === 0 ? 'None' : pickupPref.join(', ')}
+                <strong>Selected: </strong>{deliveryPref.length === 0 ? 'None' : deliveryPref.join(', ')}
             </div>
         </div>
     );
 };
   
-export const RequestForm= ({data, setDescription, setTimer, pickupPref, setPickupPref, onClick}) => {
+export const RequestForm= ({data, setDescription, setTimer, deliveryPref, setDeliveryPref, onClick}) => {
 
-    useEffect(() => {
-        const { description } = location.state || {};
-        if (description) {
-            setDescription(description);
-        }
-    }, [location.state]);
     const navigate = useNavigate();
     const DirectToHome = () => {
         navigate('/'); 
@@ -231,9 +271,9 @@ export const RequestForm= ({data, setDescription, setTimer, pickupPref, setPicku
                     <TimeSelector setTimer={setTimer}/>
                 </Form.Group>
                 <hr />
-                <Form.Group controlId="formPickUpDropOff">
-                    <Form.Label>Pick Up / Drop Off Preference</Form.Label>
-                    <MultiSelect pickupPref={pickupPref} setPickupPref={setPickupPref}/>
+                <Form.Group controlId="formDelivery">
+                    <Form.Label>Delivery Preference</Form.Label>
+                    <MultiSelect deliveryPref={deliveryPref} setDeliveryPref={setDeliveryPref}/>
                 </Form.Group>
 
                 {/* Accept/Submit Button */}
