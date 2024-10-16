@@ -24,7 +24,6 @@ function CreateUser({ closeModal, userId }) {
             console.error("User ID is missing.");
             return;
         }
-
         const newUserProfile = {
             username: name,
             Address: address,
@@ -41,7 +40,6 @@ function CreateUser({ closeModal, userId }) {
             photo_url: '',
             location: ''
         };
-
         try {
             await addUser(newUserProfile, userId);  // Store user data under /users/{userId}
             console.log("Profile created successfully!");
@@ -95,7 +93,6 @@ function CreateUser({ closeModal, userId }) {
                             onChange={(e) => setCity(e.target.value)}
                             placeholder="City"
                         />
-
                         <div className="twoColumns">
                             <input
                                 className="input"
@@ -136,5 +133,4 @@ function CreateUser({ closeModal, userId }) {
         </div>
     )
 }
-
 export default CreateUser

@@ -6,7 +6,6 @@
     justify-content: center; 
     align-items: center;     
 }
-
 .modalContainer {
     width: 80%;             
     max-width: 900px;        
@@ -20,25 +19,21 @@
     justify-content: center;
     align-items: center;
 }
-
 .title {
     text-align: center;
     margin-top: 10px;
     font-family: "Hepta Slab-Regular";
 }
-
 .titleCloseBtn {
     display: flex;
     justify-content: flex-end;
 }
-
 .titleCloseBtn button {
     background-color: transparent;
     border: none;
     font-size: 25px;
     cursor: pointer;
 }
-
 .body {
     display: flex;
     flex-direction: column;
@@ -47,7 +42,6 @@
     width: 80%;        
     text-align: center; 
 }
-
 .address {
     display: grid;
     grid-template-columns: 1fr; 
@@ -57,21 +51,18 @@
     gap: 20px;                  
     text-align: center;
 }
-
 .neighborhood {
     width: 100%;                
     max-width: 600px;            
     margin-top: 30px;
     text-align: center;
 }
-
 .modalContainer .footer {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;                
 }
-
 .modalContainer .footer button {
     margin: 10px;
     padding: 10px;
@@ -82,7 +73,6 @@
     font-size: 20px;
     cursor: pointer;
 }
-
 #cancelBtn {
     background-color: #ABABAB;
 }
@@ -95,14 +85,12 @@
 #saveBtn:hover {
     background-color: #EBC310;
 }
-
 .input {
     border-radius: 10px;
     /* margin: 10px; */
     width: 100%;            
     padding: 5px;
 }
-
 .twoColumns {
     display: grid;
     grid-template-columns: 1fr 1fr; 
