@@ -62,13 +62,13 @@ function EditProfileModal({ closeModal, userId }) {
                     <button onClick={() => closeModal(false)}> X </button>
                 </div> */}
                 <div className="title">
-                    <h1>Edit Profile</h1>
+                    <h2>Edit Profile</h2>
                 </div>
                 <div className="body">
 
 
                     <div className="address">
-                        <h2>Home Address</h2>
+                        <h3>Home Address</h3>
                         <input
                             className="input fullWidth"
                             value={address}
@@ -111,7 +111,7 @@ function EditProfileModal({ closeModal, userId }) {
 
 
                     <div className="neighborhood">
-                        <h2> Neighborhood Code</h2>
+                        <h3> Neighborhood Code</h3>
                         {/* <input className="input" value="Enter Here"/> */}
                         <input
                             className="input"
