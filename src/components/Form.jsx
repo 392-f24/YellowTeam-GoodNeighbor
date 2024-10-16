@@ -29,7 +29,7 @@ export const AcceptanceForm = ({request, handleClose}) => {
     const [err, setErr] = useState(false);
 
     const updatedData = { ...(request), 
-                        status_options: "Pending", 
+                        request_status: "Pending", 
                         accept_status: true, 
                         accept_userid : currentUserID,
                         delivery_pref: deliveryOption,
