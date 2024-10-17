@@ -21,7 +21,7 @@ const Request_Page_List = () => {
   const[updateStatus,updateResult] = useDbStatusUpdate();
 
 
-  /// modal handle
+  /// rating modal handle //////////////////////////
   const [selectedRequestId, setSelectedRequestId] = useState(null);  // No initial request selected
   const [isModalOpen, setIsModalOpen] = useState(false);             // Modal closed by default
 
@@ -42,7 +42,7 @@ const Request_Page_List = () => {
     handleModalClose();
   };
 
-  ///
+  /////////////////////
   
   useEffect(() => {
     if (removeResult) {
@@ -210,6 +210,8 @@ const Request_Page_List = () => {
         handleClose={handleModalClose} 
         requestId={selectedRequestId} 
         handleCloseRequest={handleCloseRequest} 
+        requests={requests}    
+        users={users} 
       />
     </div>
   );

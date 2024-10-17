@@ -1,34 +1,30 @@
-// rate_modal.jsx
 import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 
-const RateModal = ({ show, handleClose, requestId, handleCloseRequest }) => {
+const RateModal = ({ show, handleClose, requestId, handleSubmit ,requests,users}) => {
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>Confirm Close Request</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        {/* Display dynamic content based on requestId */}
+        {/* Current content showing the requestId */}
         {requestId ? (
           <p>Are you sure you want to close request ID: {requestId}?</p>
         ) : (
           <p>No request selected.</p>
         )}
       </Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
-          Cancel
-        </Button>
+      <Modal.Footer className="d-flex justify-content-center">
+        {/* Submit button centered */}
         <Button 
-          variant="danger" 
+          variant="primary" 
           onClick={() => {
-            handleCloseRequest(requestId); // Pass the requestId to the handler
-            handleClose(); // Close modal
+            handleSubmit(requestId);  // Handle the submit action
+            handleClose();            // Close modal after submit
           }}
-          disabled={!requestId}  // Disable if no requestId is passed
         >
-          Close Request
+          Submit
         </Button>
       </Modal.Footer>
     </Modal>
