@@ -36,7 +36,6 @@ const RequestFormPage = () => {
     timer: timer, 
     delivery_pref: deliveryPref,
     expected_duration: "",
-    accept_status: false,
     request_status: "Open",
     accept_userid: "",
     location: "",
