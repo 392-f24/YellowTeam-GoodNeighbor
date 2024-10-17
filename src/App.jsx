@@ -9,9 +9,7 @@ import Navigationbar from './components/Navigation';
 import HomePage from './components/pages/HomePage';
 import RequestsPage from './components/pages/RequestsPage';
 import ProfilePage from './components/pages/ProfilePage';
-import RequestForm from './components/RequestForm'; 
-
-import AuthButton from './components/Buttons'; 
+import RequestFormPage from './components/pages/RequestForm'; 
 
 const App = () => {
   const [user, loading, error] = useAuthState(); 
@@ -32,12 +30,12 @@ const App = () => {
           <SignInPage />  // Show sign-in page if not authenticated
         ) : (
           <>
-            <div className="flex-grow"> 
+            <div className="content flex-grow"> 
               <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/requests" element={<RequestsPage />} />
                 <Route path="/profile" element={<ProfilePage />} />
-                <Route path="/requestform" element={<RequestForm />} />
+                <Route path="/requestform" element={<RequestFormPage />} />
 
                 
               </Routes>

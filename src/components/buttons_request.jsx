@@ -5,7 +5,7 @@ import { useDbData, useAuthState, useDbRemove } from '../utilities/firebase';
 
 
 // Function to create buttons based on request status and connect handlers
-export const buttonCreate = (status, requestId,withdrawHook,statusHook) => {
+export const buttonCreate = (status, requestId,withdrawHook,statusHook,deliveryPref) => {
   switch (status) {
     case 'Open':
       return (
@@ -43,9 +43,10 @@ export const buttonCreate = (status, requestId,withdrawHook,statusHook) => {
     case 'Done':
       return null; // No buttons for "Done" status
     case 'Your_accept':
+      console.log(deliveryPref);
       return (
         <>
-          <Button variant="danger" size="sm" onClick={() => handleWithdrawHelp(requestId,statusHook)}>
+          <Button variant="danger" size="sm" onClick={() => handleWithdrawHelp(requestId,statusHook,deliveryPref)}>
             Withdraw Help
           </Button>
         </>
@@ -69,12 +70,13 @@ const handleAcceptHelp = (requestId,statusHook) => {
   });
 };
 
-const handleWithdrawHelp = (requestId,statusHook) => {
-  console.log(`Withdrawing help for request ID: ${requestId}`);
+const handleWithdrawHelp = (requestId,statusHook,deliveryPref) => {
+  const oldDevlivery = new Set([...deliveryPref]);
   statusHook(`requests/${requestId}`, {
     request_status: 'Open',
     accept_status: false,
-    accept_userid: ''
+    accept_userid: '',
+    delivery_pref: [...oldDevlivery]
   });
 };
 const handleViewProfile = (requestId) => {

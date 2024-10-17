@@ -1,0 +1,19 @@
+.text-only {
+    transition: box-shadow 0.3s ease; 
+}
+
+.text-only:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.custom-form {
+    padding: 20px;
+    border-radius: 8px; 
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.3s ease; 
+}
+
+.small-alert {
+    font-size: 0.875rem;
+    padding: 0.25rem 0.5rem;
+  }

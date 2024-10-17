@@ -1,9 +1,58 @@
-.sign-in-button{
-    background-color: #D1E7DD;
+.green-custom-button {
+    background-color: #D1E7DD; 
     color: #212529;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-    border: 1px solid  #D1E7DD;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); 
+    border: 1px solid #D1E7DD; 
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; 
 }
-.sign-in-button .hover{
-    background-color: #A3CFBB
+
+.green-custom-button:hover {
+    background-color: #A3CFBB; 
+    border-color: #A3CFBB; 
+    box-shadow: 0px 6px 8px 0px rgba(0, 0, 0, 0.5);
 }
+
+/* Override active and focus states */
+.green-custom-button:focus,
+.green-custom-button:active,
+.green-custom-button:focus-visible {
+    background-color: #A3CFBB !important; 
+    border-color: #A3CFBB !important; 
+    outline: none; 
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); 
+}
+
+.grey-custom-button {
+    background-color: #6C757D; 
+    color: #FFFFFF;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); 
+    border: 1px solid #6C757D; 
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; 
+}
+
+.grey-custom-button:hover {
+    background-color: #5A6268; 
+    border-color: #5A6268; 
+    box-shadow: 0px 6px 8px 0px rgba(0, 0, 0, 0.5);
+}
+
+/* Override active and focus states */
+.grey-custom-button:focus,
+.grey-custom-button:active,
+.grey-custom-button:focus-visible {
+    background-color: #5A6268 !important; 
+    border-color: #5A6268 !important; 
+    outline: none; 
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); 
+}
+
+.grey-outline-custom-button {
+    transition: all 0.3s ease;
+  }
+  
+  /* Button style when pressed */
+  .grey-outline-custom-button.pressed {
+    background-color: grey;
+    color: #D1E7DD;
+    border-color: grey;
+  }
