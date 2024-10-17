@@ -4,6 +4,7 @@ import { useDbData } from '../utilities/firebase';
 import "./RequestList.css";
 import AcceptRequestModal from "./Modal"
 import CountdownTimer from './CountdownTimer';
+import DistanceMatrix from '../utilities/Dynamic_Distance';
 
 const RequestList = () => {
     const [sortBy, setSortBy] = useState('timeRemaining');
@@ -63,8 +64,18 @@ const RequestList = () => {
             <div className="flex-grow-1 overflow-auto px-3 py-2">
                 <div className="row">
                     {requestsNotAccepted.map(request => {
+                        
                         const user = users[request.userid]; // Get user info for each request
+                        console.log('USERS', user)
                         const rating = user ? user.rate_score : 0;
+                        const address = user ? user.Address : '';
+                        const city = user ? user.City : '';
+                        const state = user ? user.StateLoc : '';
+                        const zip = user ? user.Zip : '';
+                        const fullAddress = `${address}, ${city}, ${state} ${zip}`;
+                        console.log("Full Address", fullAddress)
+                        const { distance, duration} = DistanceMatrix("1 Infinite Loop, Cupertino, CA");
+                       
 
                         return (
                             <div key={request.request_id} className="col-12 mb-3">
@@ -83,9 +94,11 @@ const RequestList = () => {
                                             </div>
                                             <small className="text-muted mb-2">{request.location || "Unknown location"}</small>
                                             <Card.Text>{request.description}</Card.Text>
+                                          
                                         </div>
                                     </Card.Body>
                                 </Card>
+                                
                             </div>
                         );
                     })}
