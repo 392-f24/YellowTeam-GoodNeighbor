@@ -3,6 +3,7 @@ import { DropdownButton, Dropdown, Card } from 'react-bootstrap';
 import { useDbData } from '../utilities/firebase';
 import "./RequestList.css";
 import AcceptRequestModal from "./Modal"
+import CountdownTimer from './CountdownTimer';
 
 const RequestList = () => {
     const [sortBy, setSortBy] = useState('timeRemaining');
@@ -23,7 +24,7 @@ const RequestList = () => {
 
     const requests = Object.values(requestsData); // Convert requests object to array
     const users = usersData;
-    const requestsNotAccepted = requests.filter(request => request.accept_status === false);
+    const requestsNotAccepted = requests.filter(request => request.request_status === "Open");
 
     const handleClose = () => setShow(false);
     const handleShow = (request) => {
@@ -70,7 +71,7 @@ const RequestList = () => {
                                 <Card className="shadow border-0 cursor-pointer hover-effect" onClick={() => handleShow(request)}>
                                     <Card.Body className="p-0">
                                         <Card.Header className="text-muted">
-                                            {request.timer} min remaining
+                                            <CountdownTimer request={request}/>
                                         </Card.Header>
                                         <div className="p-3">
                                             <div className="d-flex justify-content-between align-items-center mb-1">
@@ -92,7 +93,7 @@ const RequestList = () => {
             </div>
 
             {/* Modal outside the map to avoid rendering multiple modals */}
-            {currentRequest && <AcceptRequestModal show={show} handleClose={handleClose} currentRequest={currentRequest} />}
+            {currentRequest && <AcceptRequestModal show={show} handleClose={handleClose} currentRequest={currentRequest}/>}
         </div>
     );
 };

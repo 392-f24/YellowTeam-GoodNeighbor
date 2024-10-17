@@ -98,7 +98,7 @@ const Request_Page_List = () => {
               {userRequests.length > 0 ? (
                   userRequests.map((request) => {
                     const user = getUserById(request.accept_userid); // Retrieve the user object
-                    
+      
                     return (
                       <Card key={request.request_id} className="mb-3 shadow-sm">
                         <Card.Body>
@@ -165,7 +165,7 @@ const Request_Page_List = () => {
                           </div>
                           <div className="d-flex justify-content-center mt-3">
                             {/* Dynamically create buttons for accepted requests */}
-                            {buttonCreate('Your_accept', request.request_id, removeRequest, updateStatus)}
+                            {buttonCreate('Your_accept', request.request_id, removeRequest, updateStatus, request.delivery_pref)}
                           </div>
                         </Card.Body>
                       </Card>

@@ -29,10 +29,9 @@ export const AcceptanceForm = ({request, handleClose}) => {
     const [err, setErr] = useState(false);
 
     const updatedData = { ...(request), 
-                        request_status: "Pending", 
-                        accept_status: true, 
+                        request_status: "Pending",
                         accept_userid : currentUserID,
-                        delivery_pref: deliveryOption,
+                        delivery_pref: [...request.delivery_pref, deliveryOption], // adding selected pref to the end, any repeat indicates a selected option
                         accept_phone_number: phoneNumber,
                         accept_msp: msg
                      };
