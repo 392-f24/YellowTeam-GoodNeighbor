@@ -35,10 +35,17 @@ const Request_Page_List = () => {
     setIsModalOpen(false);            // Close the modal
   };
 
-  const handleCloseRequest = (requestId) => {
-    // Logic to handle request close based on requestId
-    console.log(`Closing request ID: ${requestId}`);
-    // Close the modal after handling the request close
+  const handleCloseRequest = (requestId,acceptUserId, newRating) => {
+    const userToUpdate = users[acceptUserId];  // Get the user data
+    const rateCount = userToUpdate.rate_count || 1;  // Default rate count
+    updateStatus(`requests/${requestId}`, {
+      request_status: 'Closed',  // Mark request as closed
+    });
+    updateStatus(`users/${acceptUserId}`, {
+      rate_score: newRating,           // Update the new rating
+      rate_count: rateCount + 1  // Increment the rate count
+    });
+    console.log(`Closing request ID: ${requestId} and Updated user ${acceptUserId} with new rating: ${newRating}`);
     handleModalClose();
   };
 
@@ -130,7 +137,7 @@ const Request_Page_List = () => {
                           <div className="d-flex justify-content-between">
                             <div>
                               <strong className="text-highlight">
-                                {request.accept_status && user
+                                { user && user.username
                                   ? <span><strong>{user.username}</strong> has accepted your request:</span>
                                   : <span><strong>No one</strong> accepts your request yet</span>}
                               </strong>
@@ -192,7 +199,7 @@ const Request_Page_List = () => {
                           </div>
                           <div className="d-flex justify-content-center mt-3">
                             {/* Dynamically create buttons for accepted requests */}
-                            {buttonCreate('Your_accept', request.request_id,request.delivery_pref, removeRequest, updateStatus,handleModalOpen)}
+                            {buttonCreate(request.request_status === 'Closed' ? request.request_status : 'Your_accept', request.request_id,request.delivery_pref, removeRequest, updateStatus,handleModalOpen)}
                           </div>
                         </Card.Body>
                       </Card>
@@ -209,7 +216,7 @@ const Request_Page_List = () => {
         show={isModalOpen} 
         handleClose={handleModalClose} 
         requestId={selectedRequestId} 
-        handleCloseRequest={handleCloseRequest} 
+        handleSubmit={handleCloseRequest} 
         requests={requests}    
         users={users} 
       />
