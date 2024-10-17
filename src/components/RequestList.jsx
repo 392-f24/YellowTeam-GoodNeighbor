@@ -3,6 +3,7 @@ import { DropdownButton, Dropdown, Card } from 'react-bootstrap';
 import { useDbData } from '../utilities/firebase';
 import "./RequestList.css";
 import AcceptRequestModal from "./Modal"
+import CountdownTimer from './CountdownTimer';
 
 const RequestList = () => {
     const [sortBy, setSortBy] = useState('timeRemaining');
@@ -23,7 +24,7 @@ const RequestList = () => {
 
     const requests = Object.values(requestsData); // Convert requests object to array
     const users = usersData;
-    const requestsNotAccepted = requests.filter(request => request.accept_status === false);
+    const requestsNotAccepted = requests.filter(request => request.request_status === "Open");
 
     const handleClose = () => setShow(false);
     const handleShow = (request) => {
@@ -50,7 +51,7 @@ const RequestList = () => {
 
     return (
         <div className="w-100">
-            <div className="d-flex justify-content-center align-items-center mb-3">
+            <div className="request-list-header d-flex justify-content-center align-items-center mb-3">
                 <h2 className="mb-0 me-2">Request List</h2>
                 <DropdownButton id="dropdown-basic" variant="secondary" size="sm" title="Sort by">
                     <Dropdown.Item onClick={() => handleSort('timeRemaining')}>Time Remaining</Dropdown.Item>
@@ -59,7 +60,7 @@ const RequestList = () => {
                 </DropdownButton>
             </div>
 
-            <div className="flex-grow-1 overflow-auto px-3 py-2" style={{ maxHeight: 'calc(100vh - 150px)' }}>
+            <div className="flex-grow-1 overflow-auto px-3 py-2">
                 <div className="row">
                     {requestsNotAccepted.map(request => {
                         const user = users[request.userid]; // Get user info for each request
@@ -70,7 +71,7 @@ const RequestList = () => {
                                 <Card className="shadow border-0 cursor-pointer hover-effect" onClick={() => handleShow(request)}>
                                     <Card.Body className="p-0">
                                         <Card.Header className="text-muted">
-                                            {request.timer} min remaining
+                                            <CountdownTimer request={request}/>
                                         </Card.Header>
                                         <div className="p-3">
                                             <div className="d-flex justify-content-between align-items-center mb-1">
@@ -92,7 +93,7 @@ const RequestList = () => {
             </div>
 
             {/* Modal outside the map to avoid rendering multiple modals */}
-            {currentRequest && <AcceptRequestModal show={show} handleClose={handleClose} currentRequest={currentRequest} />}
+            {currentRequest && <AcceptRequestModal show={show} handleClose={handleClose} currentRequest={currentRequest}/>}
         </div>
     );
 };

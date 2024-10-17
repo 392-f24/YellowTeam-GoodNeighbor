@@ -1,0 +1,124 @@
+.modalBackground {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    display: flex;
+    justify-content: center; 
+    align-items: center;  
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;   
+}
+
+.modalContainer {
+    width: 80%;             
+    max-width: 900px;        
+    max-height: 80vh;
+    overflow-y: auto; 
+    border-radius: 12px;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    display: flex;            
+    flex-direction: column;   
+    padding: 25px;
+    justify-content: center;
+    align-items: center;
+}
+
+.title {
+    text-align: center;
+    margin-top: 10px;
+    font-family: "Hepta Slab-Regular";
+}
+
+.titleCloseBtn {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.titleCloseBtn button {
+    background-color: transparent;
+    border: none;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80%;        
+    text-align: center; 
+}
+
+.address {
+    display: grid;
+    grid-template-columns: 1fr; 
+    width: 100%;                 
+    max-width: 600px;             
+    /* margin-top: 20px; */
+    gap: 20px;                  
+    text-align: center;
+    font-family: "Hepta Slab-Regular";
+}
+
+.neighborhood {
+    width: 100%;                
+    max-width: 600px;            
+    margin-top: 30px;
+    text-align: center;
+    font-family: "Hepta Slab-Regular";
+}
+
+.modalContainer .footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;                
+}
+
+.modalContainer .footer button {
+    margin: 10px;
+    padding: 10px;
+    border: none;
+    background-color: cornflowerblue;
+    color: white;
+    border-radius: 8px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+#cancelBtn {
+    background-color: #ABABAB;
+}
+#cancelBtn:hover {
+    background-color: #EBC310;
+}
+#saveBtn {
+    background-color: #0F8176;
+}
+#saveBtn:hover {
+    background-color: #EBC310;
+}
+
+.input {
+    border-radius: 10px;
+    /* margin: 10px; */
+    width: 100%;            
+    padding: 5px;
+}
+
+.twoColumns {
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    width: 100%;
+    gap: 10px;
+}
+
+.halfWidth {
+    width: 100%;            
+}
+
+.smallText {
+    font-size: 14px;
+}

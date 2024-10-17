@@ -15,10 +15,15 @@ const HomePage = () => {
   };
 
   return (
-    <div className='homepage'>      
-      <h5>New Request</h5>
-      <TextOnlyForm text={description} setText={setDescription} placeholder={'How can your neighbors help?'}/>
-      <GreenButton onClick={DirectToRequestForm} text={'Submit'}/>
+    <div className='homepage'>   
+      
+      <div className='new-request-area'> 
+        <h2 className="mb-0 me-2">New Request</h2>
+        <TextOnlyForm text={description} setText={setDescription} placeholder={'How can your neighbors help?'}/>
+        <GreenButton onClick={DirectToRequestForm} text={'Submit'}/>
+
+      </div>
+
       <RequestList />
     </div>
   );
