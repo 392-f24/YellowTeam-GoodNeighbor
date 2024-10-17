@@ -3,6 +3,7 @@ import { Button, Card, Alert } from 'react-bootstrap';
 import './Request_Page_list.css'; 
 import { useDbData, useAuthState, useDbRemove,useDbStatusUpdate } from '../utilities/firebase';
 import { buttonCreate } from './buttons_request';
+import RateModal from './rate_modal'
 
 const Request_Page_List = () => {
   //request hook
@@ -18,6 +19,30 @@ const Request_Page_List = () => {
   const [users, usersError] = useDbData('users');
   const [removeRequest, removeResult] = useDbRemove();
   const[updateStatus,updateResult] = useDbStatusUpdate();
+
+
+  /// rating modal handle //////////////////////////
+  const [selectedRequestId, setSelectedRequestId] = useState(null);  // No initial request selected
+  const [isModalOpen, setIsModalOpen] = useState(false);             // Modal closed by default
+
+  const handleModalOpen = (requestId) => {
+    setSelectedRequestId(requestId);  // Set the clicked request ID
+    setIsModalOpen(true);             // Open the modal
+  };
+
+  const handleModalClose = () => {
+    setSelectedRequestId(null);       // Clear the selected request
+    setIsModalOpen(false);            // Close the modal
+  };
+
+  const handleCloseRequest = (requestId) => {
+    // Logic to handle request close based on requestId
+    console.log(`Closing request ID: ${requestId}`);
+    // Close the modal after handling the request close
+    handleModalClose();
+  };
+
+  /////////////////////
   
   useEffect(() => {
     if (removeResult) {
@@ -98,7 +123,7 @@ const Request_Page_List = () => {
               {userRequests.length > 0 ? (
                   userRequests.map((request) => {
                     const user = getUserById(request.accept_userid); // Retrieve the user object
-      
+                    
                     return (
                       <Card key={request.request_id} className="mb-3 shadow-sm">
                         <Card.Body>
@@ -112,15 +137,16 @@ const Request_Page_List = () => {
                               <Card.Text className="normal-text">{request.description}</Card.Text>
                             </div>
                             <div className="text-end">
-                              <span className="me-2 text-muted">Status:</span>
-                              <span className={`badge ${getBadgeClass(request.request_status)} badge-responsive`}>
-                                {request.request_status}
-                              </span>
-                            </div>
+                            <span className="me-2 text-muted">Status:</span>
+                            <span className={`badge ${getBadgeClass(request.request_status)} badge-responsive`}>
+                              {request.request_status}
+                              {(request.request_status === 'Pending' || request.request_status === 'Accepted') && ` / ${findDuplicate(request.delivery_pref)}`}
+                            </span>
+                          </div>
                           </div>
                           <div className="d-flex justify-content-center mt-3">
                             {/* Dynamically create buttons based on request status, including Withdraw Help */}
-                            {buttonCreate(request.request_status, request.request_id, removeRequest, updateStatus)}
+                            {buttonCreate(request.request_status, request.request_id,request.delivery_pref, removeRequest, updateStatus,handleModalOpen)}
                           </div>
                         </Card.Body>
                       </Card>
@@ -157,15 +183,16 @@ const Request_Page_List = () => {
                               </Card.Text>
                             </div>
                             <div className="text-end">
-                              <span className="me-2 text-muted">Status:</span>
-                              <span className={`badge ${getBadgeClass(request.request_status)} badge-responsive`}>
-                                {request.request_status}
-                              </span>
+                            <span className="me-2 text-muted">Status:</span>
+                            <span className={`badge ${getBadgeClass(request.request_status)} badge-responsive`}>
+                              {request.request_status}
+                              {(request.request_status === 'Pending' || request.request_status === 'Accepted') && ` / ${findDuplicate(request.delivery_pref)}`}
+                            </span>
                             </div>
                           </div>
                           <div className="d-flex justify-content-center mt-3">
                             {/* Dynamically create buttons for accepted requests */}
-                            {buttonCreate('Your_accept', request.request_id, removeRequest, updateStatus, request.delivery_pref)}
+                            {buttonCreate('Your_accept', request.request_id,request.delivery_pref, removeRequest, updateStatus,handleModalOpen)}
                           </div>
                         </Card.Body>
                       </Card>
@@ -178,8 +205,31 @@ const Request_Page_List = () => {
               )}
         </div>
       </div>
+      <RateModal 
+        show={isModalOpen} 
+        handleClose={handleModalClose} 
+        requestId={selectedRequestId} 
+        handleCloseRequest={handleCloseRequest} 
+        requests={requests}    
+        users={users} 
+      />
     </div>
   );
 };
+
+const findDuplicate = (array) => {
+  const counts = {};
+  array.forEach((item) => {
+    counts[item] = (counts[item] || 0) + 1;
+  });
+
+  for (let item in counts) {
+    if (counts[item] > 1) {
+      return item;  
+    }
+  }
+  return "Invalid";  
+};
+
 
 export default Request_Page_List;
