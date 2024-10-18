@@ -36,9 +36,13 @@ export const buttonCreate = (status, requestId, delivery_pref, withdrawHook, sta
           <Button variant="success" size="sm" className="me-2" onClick={() => modalhook(requestId)}>
             Close Request
           </Button>
+          <Button variant="info" size="sm"  className="me-2" onClick={() => profileModalHook(requestId)}>
+            View Profile
+          </Button>
           <Button variant="danger" size="sm" onClick={() => handleWithdrawRequest(requestId,withdrawHook)}>
             Withdraw Request
           </Button>
+          
         </>
       );
 
