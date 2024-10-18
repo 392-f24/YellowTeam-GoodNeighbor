@@ -82,11 +82,11 @@ const ProfilePage = () => {
       {/* Stats */}
       <div className="StatsContainer">
         <div className="TasksBy">
-          <h1 className="numberStyle"> 14 </h1>
+          <h1 className="numberStyle"> {usersData.task_CBU || 0} </h1>
           <p className="textStyle">Tasks completed by User </p>
         </div>
         <div className="TasksFor">
-          <h1 className="numberStyle"> 23 </h1>
+          <h1 className="numberStyle">{usersData.task_CFU || 0}</h1>
           <p className="textStyle">Tasks completed for User </p>
         </div>
 

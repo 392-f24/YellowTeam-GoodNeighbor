@@ -21,12 +21,12 @@ const RateModal = ({ show, handleClose, requestId, handleSubmit, requests, users
   
     const currentRating = userToUpdate.rate || 5;  // Current user rating (default to 5 if not available)
     const rateCount = userToUpdate.rate_count || 1;  // Current rate count (default to 1 if not available)
-    
+    const currentUserId = request.userid;
     // Calculate the new rating
     let newRating = (currentRating * rateCount + rating) / (rateCount + 1);  
     newRating = parseFloat(newRating.toFixed(2)); 
     // Pass data to the parent through handleSubmit
-    handleSubmit(requestId, acceptUserId, newRating);  // Pass new rating, userId, and requestId
+    handleSubmit(requestId, acceptUserId, newRating,currentUserId);  // Pass new rating, userId, and requestId
     handleClose();  // Close modal
   };
 

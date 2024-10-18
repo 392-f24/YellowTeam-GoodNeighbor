@@ -37,17 +37,30 @@ const Request_Page_List = () => {
     setIsRateModalOpen(false);        // Close the rate modal
   };
 
-  const handleCloseRequest = (requestId, acceptUserId, newRating) => {
+  const handleCloseRequest = (requestId, acceptUserId, newRating, userId) => {
     const userToUpdate = users[acceptUserId];  // Get the user data
     const rateCount = userToUpdate.rate_count || 1;  // Default rate count
+    
+    // Update the request status to 'Closed'
     updateStatus(`requests/${requestId}`, {
       request_status: 'Closed',  // Mark request as closed
     });
+  
+    // Update the accepted user's rating and increment task_CBU
     updateStatus(`users/${acceptUserId}`, {
       rate_score: newRating,           // Update the new rating
-      rate_count: rateCount + 1  // Increment the rate count
+      rate_count: rateCount + 1,       // Increment the rate count
+      task_CBU: (userToUpdate.task_CBU || 0) + 1,  // Increment task_CBU
     });
-    console.log(`Closing request ID: ${requestId} and updated user ${acceptUserId} with new rating: ${newRating}`);
+  
+    // Update the current user's task_CFU
+    const currentUser = users[userId];  // Fetch the current user
+    updateStatus(`users/${userId}`, {
+      task_CFU: (currentUser.task_CFU || 0) + 1,  // Increment task_CFU
+    });
+  
+    console.log(`Closing request ID: ${requestId}, updated user ${acceptUserId} with new rating: ${newRating}, and incremented task_CBU/CFU`);
+  
     handleRateModalClose();
   };
 
