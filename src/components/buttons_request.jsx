@@ -4,7 +4,7 @@ import { Button, Card, Alert } from 'react-bootstrap';
 
 
 // Function to create buttons based on request status and connect handlers
-export const buttonCreate = (status, requestId, delivery_pref, withdrawHook, statusHook, modalhook, profileModalHook) => {
+export const buttonCreate = (status, requestId,delivery_pref,withdrawHook,statusHook,modalhook) => {
   switch (status) {
     case 'Open':
       return (
@@ -24,7 +24,7 @@ export const buttonCreate = (status, requestId, delivery_pref, withdrawHook, sta
           <Button variant="danger" size="sm" className="me-2" onClick={() => handleWithdrawHelp(requestId,statusHook,delivery_pref)}>
             Reject Help
           </Button>
-          <Button variant="info" size="sm" onClick={() => profileModalHook(requestId)}>
+          <Button variant="info" size="sm" onClick={() => handleViewProfile(requestId)}>
             View Profile
           </Button>
         </>
