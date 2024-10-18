@@ -25,6 +25,8 @@ const Request_Page_List = () => {
   const [selectedRequestId, setSelectedRequestId] = useState(null);  // No initial request selected
   const [isRateModalOpen, setIsRateModalOpen] = useState(false);     // Rate modal closed by default
   const [selectedUser, setSelectedUser] = useState(null);            // User for profile modal
+  const [contactNumber, setContactNumber] = useState('xxx-xxx-xxxx');
+  const [acceptMsg, setAcceptMsg] = useState('');
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false); // Profile modal closed by default
 
   const handleRateModalOpen = (requestId) => {
@@ -60,10 +62,14 @@ const Request_Page_List = () => {
     const request = requests[requestId];
     const userId = request.accept_userid; // Get the userId of the person who made the request
     const user = users[userId];
+    const msg = request.accept_msg;
+    const number = request.accept_phone_number;
 
     if (user) {
       setSelectedUser(user);
       setIsProfileModalOpen(true);
+      setAcceptMsg(msg);
+      setContactNumber(number);
     }
   };
 
@@ -254,7 +260,8 @@ const Request_Page_List = () => {
         show={isProfileModalOpen}
         handleClose={handleProfileModalClose}
         user={selectedUser}
-
+        msg={acceptMsg}
+        contactNumber={contactNumber}
       />
     </div>
   );

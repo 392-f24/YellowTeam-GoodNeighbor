@@ -33,7 +33,7 @@ export const AcceptanceForm = ({request, handleClose}) => {
                         accept_userid : currentUserID,
                         delivery_pref: [...request.delivery_pref, deliveryOption], // adding selected pref to the end, any repeat indicates a selected option
                         accept_phone_number: phoneNumber,
-                        accept_msp: msg
+                        accept_msg: msg
                      };
     const AcceptRequest = async(evt) => {
         evt.preventDefault();
