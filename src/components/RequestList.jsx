@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { DropdownButton, Dropdown, Card } from 'react-bootstrap';
+import { DropdownButton, Dropdown, Card, Badge } from 'react-bootstrap';
 import { useDbData } from '../utilities/firebase';
 import "./RequestList.css";
 import AcceptRequestModal from "./Modal"
@@ -50,6 +50,25 @@ const RequestList = () => {
         setRequests(sortedRequests);
     };
 
+    // Remove duplicates from delivery preferences
+    const getUniqueDeliveryPrefs = (prefs) => {
+        return [...new Set(prefs)];
+    };
+
+    // Return the correct color based on the delivery preference
+    const getBadgeColor = (pref) => {
+        switch (pref) {
+            case 'Drop off':
+                return 'primary'; // Blue
+            case 'Meet up':
+                return 'success'; // Green
+            case 'Pick up':
+                return 'warning'; // Yellow
+            default:
+                return 'secondary'; // Gray unexpected values
+        }
+    };
+
     return (
         <div className="w-100">
             <div className="request-list-header d-flex justify-content-center align-items-center mb-3">
@@ -73,6 +92,8 @@ const RequestList = () => {
                         const state = user ? user.StateLoc : '';
                         const zip = user ? user.Zip : '';
                         const fullAddress = `${address}, ${city}, ${state} ${zip}`;
+
+                        const uniquePrefs = getUniqueDeliveryPrefs(request.delivery_pref);
                     
                         return (
                             <div key={request.request_id} className="col-12 mb-3">
@@ -83,6 +104,13 @@ const RequestList = () => {
                                 <Card.Body className="p-0">
                                   <Card.Header className="text-muted">
                                     <CountdownTimer request={request} />
+                                    <div>
+                                        {uniquePrefs.map((pref, index) => (
+                                            <Badge key={index} bg={getBadgeColor(pref)} className="ms-1">
+                                                {pref}
+                                            </Badge>
+                                        ))}
+                                    </div>
                                   </Card.Header>
                                   <div className="p-3">
                                     <div className="d-flex justify-content-between align-items-center mb-1">
@@ -97,9 +125,6 @@ const RequestList = () => {
                                     <small className="text-muted mb-2">
                                       {request.location || 'Unknown location'}
                                     </small>
-                        
-                                    
-                        
                                     <Card.Text>{request.description}</Card.Text>
                                   </div>
                                 </Card.Body>
