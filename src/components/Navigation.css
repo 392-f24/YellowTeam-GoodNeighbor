@@ -21,3 +21,16 @@
 .navbar .nav-link {
   padding: 0;
 }
+
+.nav-icon.active {
+  color: #1E854A;
+}
+
+.nav-icon.active i {
+  color: #1E854A;
+}
+
+.nav-icon.active p {
+  font-weight: bold;
+  color: #1E854A;
+}
