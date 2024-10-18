@@ -1,56 +1,87 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Card, Alert } from 'react-bootstrap';
-import './Request_Page_list.css'; 
-import { useDbData, useAuthState, useDbRemove,useDbStatusUpdate } from '../utilities/firebase';
+import './Request_Page_list.css';
+import { useDbData, useAuthState, useDbRemove, useDbStatusUpdate } from '../utilities/firebase';
 import { buttonCreate } from './buttons_request';
-import RateModal from './rate_modal'
+import RateModal from './rate_modal';
+import ProfileModal from './ProfileModal';
 
 const Request_Page_List = () => {
-  //request hook
+  // Request hook
   const [showUserRequests, setShowUserRequests] = useState(true);
   const [showAlert, setShowAlert] = useState(false);
 
-  //get userid
+  // Get userid
   const [user] = useAuthState();
   const currentUserID = user?.uid;
 
-  //DatabaseHook
+  // Database hook
   const [requests, error] = useDbData('requests');
   const [users, usersError] = useDbData('users');
   const [removeRequest, removeResult] = useDbRemove();
-  const[updateStatus,updateResult] = useDbStatusUpdate();
+  const [updateStatus, updateResult] = useDbStatusUpdate();
 
-
-  /// rating modal handle //////////////////////////
+  /// Rating modal handle //////////////////////////
   const [selectedRequestId, setSelectedRequestId] = useState(null);  // No initial request selected
-  const [isModalOpen, setIsModalOpen] = useState(false);             // Modal closed by default
+  const [isRateModalOpen, setIsRateModalOpen] = useState(false);     // Rate modal closed by default
+  const [selectedUser, setSelectedUser] = useState(null);            // User for profile modal
+  const [isProfileModalOpen, setIsProfileModalOpen] = useState(false); // Profile modal closed by default
 
-  const handleModalOpen = (requestId) => {
+  const handleRateModalOpen = (requestId) => {
     setSelectedRequestId(requestId);  // Set the clicked request ID
-    setIsModalOpen(true);             // Open the modal
+    setIsRateModalOpen(true);         // Open the rate modal
   };
 
-  const handleModalClose = () => {
+  const handleRateModalClose = () => {
     setSelectedRequestId(null);       // Clear the selected request
-    setIsModalOpen(false);            // Close the modal
+    setIsRateModalOpen(false);        // Close the rate modal
   };
 
-  const handleCloseRequest = (requestId) => {
-    // Logic to handle request close based on requestId
-    console.log(`Closing request ID: ${requestId}`);
-    // Close the modal after handling the request close
-    handleModalClose();
+  const handleCloseRequest = (requestId, acceptUserId, newRating) => {
+    const userToUpdate = users[acceptUserId];  // Get the user data
+    const rateCount = userToUpdate.rate_count || 1;  // Default rate count
+    updateStatus(`requests/${requestId}`, {
+      request_status: 'Closed',  // Mark request as closed
+    });
+    updateStatus(`users/${acceptUserId}`, {
+      rate_score: newRating,           // Update the new rating
+      rate_count: rateCount + 1  // Increment the rate count
+    });
+    console.log(`Closing request ID: ${requestId} and updated user ${acceptUserId} with new rating: ${newRating}`);
+    handleRateModalClose();
+  };
+
+  //////////////////////////////////////////////////////////////////
+  ///// Profile modal stuff ////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////
+
+  // Open profile modal using requestId to find the requester's profile
+  const handleProfileModalOpen = (requestId) => {
+    const request = requests[requestId];
+    const userId = request.accept_userid; // Get the userId of the person who made the request
+    const user = users[userId];
+
+    if (user) {
+      setSelectedUser(user);
+      setIsProfileModalOpen(true);
+    }
+  };
+
+  // Close profile modal
+  const handleProfileModalClose = () => {
+    setSelectedUser(null);
+    setIsProfileModalOpen(false); 
   };
 
   /////////////////////
-  
+
   useEffect(() => {
     if (removeResult) {
       setShowAlert(true);
       const timer = setTimeout(() => {
         setShowAlert(false);
       }, 1000); // Alert will disappear after 1 second
-  
+
       return () => clearTimeout(timer);
     }
   }, [removeResult]);
@@ -68,10 +99,11 @@ const Request_Page_List = () => {
   // Filter requests based on the logged-in user (currentUserID)
   const userRequests = Object.values(requests).filter(request => request.userid === currentUserID);
   const acceptedRequests = Object.values(requests).filter(request => request.accept_userid === currentUserID);
+
   // Obtain User Info
   const getUserById = (userId) => {
     const user = Object.values(users).find(u => u.userid === userId);
-    return user ? user: "Unknown User";
+    return user ? user : "Unknown User";
   };
 
   const getBadgeClass = (status) => {
@@ -89,7 +121,7 @@ const Request_Page_List = () => {
     }
   };
 
-  //UI construction
+  // UI construction
   return (
     <div className="container">
       {/* Top buttons */}
@@ -121,6 +153,7 @@ const Request_Page_List = () => {
             <div>
               <h2>Your Requests</h2>
               {userRequests.length > 0 ? (
+
                   userRequests.map((request) => {
                     const user = getUserById(request.accept_userid); // Retrieve the user object
                     
@@ -130,69 +163,72 @@ const Request_Page_List = () => {
                           <div className="d-flex justify-content-between">
                             <div>
                               <strong className="text-highlight">
-                                {request.accept_status && user
+                                { user && user.username
                                   ? <span><strong>{user.username}</strong> has accepted your request:</span>
                                   : <span><strong>No one</strong> accepts your request yet</span>}
                               </strong>
                               <Card.Text className="normal-text">{request.description}</Card.Text>
                             </div>
                             <div className="text-end">
+
                             <span className="me-2 text-muted">Status:</span>
                             <span className={`badge ${getBadgeClass(request.request_status)} badge-responsive`}>
                               {request.request_status}
                               {(request.request_status === 'Pending' || request.request_status === 'Accepted') && ` / ${findDuplicate(request.delivery_pref)}`}
                             </span>
                           </div>
-                          </div>
-                          <div className="d-flex justify-content-center mt-3">
-                            {/* Dynamically create buttons based on request status, including Withdraw Help */}
-                            {buttonCreate(request.request_status, request.request_id,request.delivery_pref, removeRequest, updateStatus,handleModalOpen)}
-                          </div>
-                        </Card.Body>
-                      </Card>
-                    );
-                  })
-                ) : (
-                  <p>No requests from you yet.</p>
-                )}
-            </div>
+                        </div>
+                        <div className="d-flex justify-content-center mt-3">
+                          {/* Dynamically create buttons based on request status, including Withdraw Help */}
+                          {buttonCreate(request.request_status, request.request_id, request.delivery_pref, removeRequest, updateStatus, handleRateModalOpen, handleProfileModalOpen)}
+                        </div>
+                      </Card.Body>
+                    </Card>
+                  );
+                })
               ) : (
-                <div>
-                  <h2>Requests You've Accepted</h2>
-                 {acceptedRequests.length > 0 ? (
-                  acceptedRequests.map((request) => {
-                    const user = getUserById(request.userid); 
-                    return (
-                      <Card key={request.request_id} className="mb-3 shadow-sm">
-                        <Card.Body>
-                          <div className="d-flex justify-content-between">
-                            <div>
-                              <strong className="text-highlight">
-                                You have accepted <strong>{user.username}</strong>'s Request
-                              </strong>
+                <p>No requests from you yet.</p>
+              )}
+            </div>
+          ) : (
+            <div>
+              <h2>Requests You've Accepted</h2>
+              {acceptedRequests.length > 0 ? (
+                acceptedRequests.map((request) => {
+                  const user = getUserById(request.userid);
+                  return (
+                    <Card key={request.request_id} className="mb-3 shadow-sm">
+                      <Card.Body>
+                        <div className="d-flex justify-content-between">
+                          <div>
+                            <strong className="text-highlight">
+                              You have accepted <strong>{user.username}</strong>'s Request
+                            </strong>
 
-                              <div className="text-muted">
-                                <i className="bi bi-geo-alt"></i> 
+                            <div className="text-muted">
+                              <i className="bi bi-geo-alt"></i>
 
-                                {user.Address}, {user.Apartment}, {user.City}, {user.StateLoc} {user.Zip}
-                              </div>
-
-                              {/* Description section */}
-                              <Card.Text className="normal-text">
-                                <strong>Description:</strong> {request.description}
-                              </Card.Text>
+                              {user.Address}, {user.Apartment}, {user.City}, {user.StateLoc} {user.Zip}
                             </div>
-                            <div className="text-end">
+
+                            {/* Description section */}
+                            <Card.Text className="normal-text">
+                              <strong>Description:</strong> {request.description}
+                            </Card.Text>
+                          </div>
+                          <div className="text-end">
                             <span className="me-2 text-muted">Status:</span>
                             <span className={`badge ${getBadgeClass(request.request_status)} badge-responsive`}>
                               {request.request_status}
                               {(request.request_status === 'Pending' || request.request_status === 'Accepted') && ` / ${findDuplicate(request.delivery_pref)}`}
                             </span>
-                            </div>
                           </div>
+
+                        </div>
+
                           <div className="d-flex justify-content-center mt-3">
                             {/* Dynamically create buttons for accepted requests */}
-                            {buttonCreate('Your_accept', request.request_id,request.delivery_pref, removeRequest, updateStatus,handleModalOpen)}
+                            {buttonCreate(request.request_status === 'Closed' ? request.request_status : 'Your_accept', request.request_id,request.delivery_pref, removeRequest, updateStatus,handleRateModalOpen)}
                           </div>
                         </Card.Body>
                       </Card>
@@ -202,16 +238,23 @@ const Request_Page_List = () => {
                   <p>You haven't accepted any requests yet.</p>
                 )}
                 </div>
-              )}
+
+          )}
         </div>
       </div>
-      <RateModal 
-        show={isModalOpen} 
-        handleClose={handleModalClose} 
-        requestId={selectedRequestId} 
-        handleCloseRequest={handleCloseRequest} 
-        requests={requests}    
-        users={users} 
+      <RateModal
+        show={isRateModalOpen}
+        handleClose={handleRateModalClose}
+        requestId={selectedRequestId}
+        handleSubmit={handleCloseRequest}
+        requests={requests}
+        users={users}
+      />
+      <ProfileModal
+        show={isProfileModalOpen}
+        handleClose={handleProfileModalClose}
+        user={selectedUser}
+
       />
     </div>
   );
@@ -225,10 +268,10 @@ const findDuplicate = (array) => {
 
   for (let item in counts) {
     if (counts[item] > 1) {
-      return item;  
+      return item;
     }
   }
-  return "Invalid";  
+  return "Invalid";
 };
 
 
