@@ -92,12 +92,13 @@ const RequestList = () => {
                                         <span>{rating}</span>
                                       </div>
                                     </div>
+                                    {/* DistanceMatrix Component */}
+                                    <DistanceMatrix arrival={fullAddress} />
                                     <small className="text-muted mb-2">
                                       {request.location || 'Unknown location'}
                                     </small>
                         
-                                    {/* DistanceMatrix Component */}
-                                    <DistanceMatrix arrival={fullAddress} />
+                                    
                         
                                     <Card.Text>{request.description}</Card.Text>
                                   </div>

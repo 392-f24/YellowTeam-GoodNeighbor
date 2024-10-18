@@ -61,14 +61,19 @@ const DistanceMatrix = ({ arrival }) => {
       calculateDistance();
     }
   }, [origin, destination]);
+  console.log('Origin', origin);
+  console.log('Destination', destination);
 
   return (
+    
 
-      <Card style={{ width: '18rem' }}>
-          <Card.Text>Distance: {distance || 'Calculating...'}</Card.Text>
-          <Card.Text>Duration: {duration || 'Calculating...'}</Card.Text>
-      </Card>
-
+    <div>
+      <div>
+      <text>{distance} ({duration || 'Calculating...'} away)</text>
+      </div>
+      
+      
+    </div>
   );
 };
 

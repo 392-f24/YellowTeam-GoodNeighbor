@@ -196,17 +196,15 @@ const TimeSelector = ({setTimer}) => {
     );
 };
 
-const MultiSelect = ({deliveryPref, setDeliveryPref}) => {
+const MultiSelect = ({ deliveryPref, setDeliveryPref, meetUpLocation, setMeetUpLocation }) => {
     const options = ['Pick up', 'Drop off', 'Meet up'];
-    const [meetUpLocation, setMeetUpLocation] = useState(''); // Changed variable name
 
-    // Handle select logic
     const handleSelect = (option) => {
         setDeliveryPref((prevSelected) => {
             if (prevSelected.includes(option)) {
-                return prevSelected.filter((item) => item !== option); // Deselect the option
+                return prevSelected.filter((item) => item !== option); // Deselect
             } else {
-                return [...prevSelected, option]; // Select the option
+                return [...prevSelected, option]; // Select
             }
         });
     };
@@ -229,60 +227,71 @@ const MultiSelect = ({deliveryPref, setDeliveryPref}) => {
                     <Form.Control
                         type="text"
                         placeholder="Enter location"
-                        value={meetUpLocation} // Updated to use meetUpLocation
-                        onChange={(e) => setMeetUpLocation(e.target.value)} // Update location state
+                        value={meetUpLocation}
+                        onChange={(e) => setMeetUpLocation(e.target.value)}
                     />
                 </Form.Group>
             )}
             <div className="mt-3">
-                <strong>Selected: </strong>{deliveryPref.length === 0 ? 'None' : deliveryPref.join(', ')}
+                <strong>Selected: </strong>
+                {deliveryPref.length === 0 ? 'None' : deliveryPref.join(', ')}
             </div>
         </div>
     );
 };
+
   
-export const RequestForm= ({data, setDescription, setTimer, deliveryPref, setDeliveryPref, onClick}) => {
-
+export const RequestForm = ({
+    data,
+    setDescription,
+    setTimer,
+    deliveryPref,
+    setDeliveryPref,
+    meetUpLocation,
+    setMeetUpLocation,
+    onClick,
+  }) => {
     const navigate = useNavigate();
-    const DirectToHome = () => {
-        navigate('/'); 
-      };
+    const DirectToHome = () => navigate('/');
+  
     return (
-
-        <Container className="mt-1">
-            <Form className="custom-form">
-                {/* Description Input */}
-                <Form.Group className="mb-3" controlId="formDescription">
-                    <Form.Label>Description</Form.Label>
-                    <Form.Control 
-                        className="w-100"
-                        as="textarea" 
-                        rows={5} 
-                        style={{ minHeight: '100px' }}
-                        placeholder="How can your neighbors help?"
-                        value={data.description}
-                        onChange={(e) => setDescription(e.target.value)}
-                    />
-                </Form.Group>
-                <hr />
-                <Form.Group className="mb-3 d-flex align-items-center" controlId="formExpectedDuration">
-                    <Form.Label>Post Expiration</Form.Label>
-                    <TimeSelector setTimer={setTimer}/>
-                </Form.Group>
-                <hr />
-                <Form.Group controlId="formDelivery">
-                    <Form.Label>Delivery Preference</Form.Label>
-                    <MultiSelect deliveryPref={deliveryPref} setDeliveryPref={setDeliveryPref}/>
-                </Form.Group>
-
-                {/* Accept/Submit Button */}
-                <div className="d-flex justify-content-center gap-3">
-                    <GreenButton onClick={DirectToHome} text={'Cancel'}/>
-                    <GreenButton onClick={onClick} text={'Submit'}/>
-                </div>
-            </Form>
-        </Container>
+      <Container className="mt-1">
+        <Form className="custom-form">
+          <Form.Group className="mb-3" controlId="formDescription">
+            <Form.Label>Description</Form.Label>
+            <Form.Control
+              className="w-100"
+              as="textarea"
+              rows={5}
+              style={{ minHeight: '100px' }}
+              placeholder="How can your neighbors help?"
+              value={data.description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
+          </Form.Group>
+          <hr />
+          <Form.Group className="mb-3 d-flex align-items-center" controlId="formExpectedDuration">
+            <Form.Label>Post Expiration</Form.Label>
+            <TimeSelector setTimer={setTimer} />
+          </Form.Group>
+          <hr />
+          <Form.Group controlId="formDelivery">
+            <Form.Label>Delivery Preference</Form.Label>
+            <MultiSelect
+              deliveryPref={deliveryPref}
+              setDeliveryPref={setDeliveryPref}
+              meetUpLocation={meetUpLocation}
+              setMeetUpLocation={setMeetUpLocation}
+            />
+          </Form.Group>
+          <div className="d-flex justify-content-center gap-3">
+            <GreenButton onClick={DirectToHome} text="Cancel" />
+            <GreenButton onClick={onClick} text="Submit" />
+          </div>
+        </Form>
+      </Container>
     );
-}
-
+  };
+  
+  
 export default TextOnlyForm
