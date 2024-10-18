@@ -4,6 +4,7 @@ import { useDbData } from '../utilities/firebase';
 import "./RequestList.css";
 import AcceptRequestModal from "./Modal"
 import CountdownTimer from './CountdownTimer';
+import DistanceMatrix from '../utilities/Dynamic_Distance';
 
 const RequestList = () => {
     const [sortBy, setSortBy] = useState('timeRemaining');
@@ -86,6 +87,12 @@ const RequestList = () => {
                         const rating = user ? user.rate_score : 0;
                         const uniquePrefs = getUniqueDeliveryPrefs(request.delivery_pref);
 
+                        const address = user ? user.Address : '';
+                        const city = user ? user.City : '';
+                        const state = user ? user.StateLoc : '';
+                        const zip = user ? user.Zip : '';
+                        const fullAddress = `${address}, ${city}, ${state} ${zip}`;
+
                         return (
                             <div key={request.request_id} className="col-12 mb-3">
                                 <Card className="shadow border-0 cursor-pointer hover-effect" onClick={() => handleShow(request)}>
@@ -108,6 +115,7 @@ const RequestList = () => {
                                                     <span>{rating}</span>
                                                 </div>
                                             </div>
+                                            <DistanceMatrix arrival={fullAddress} />
                                             <small className="text-muted mb-2">{request.location || "Unknown location"}</small>
                                             <Card.Text>{request.description}</Card.Text>
                                         </div>
