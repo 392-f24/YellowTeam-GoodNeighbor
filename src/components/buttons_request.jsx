@@ -42,8 +42,8 @@ export const buttonCreate = (status, requestId, delivery_pref, withdrawHook, sta
         </>
       );
 
-    case 'Done':
-      return null; // No buttons for "Done" status
+    case 'Closed':
+      return null; // No buttons for "Closed" status
     case 'Your_accept':
       return (
         <>
