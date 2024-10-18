@@ -33,14 +33,11 @@ export const buttonCreate = (status, requestId, delivery_pref, withdrawHook, sta
     case 'Accepted':
       return (
         <>
-           <Button variant="success" size="sm" className="me-2" onClick={() => handleAcceptHelp(requestId,statusHook)}>
-            Accept Help
+          <Button variant="success" size="sm" className="me-2" onClick={() => modalhook(requestId)}>
+            Close Request
           </Button>
-          <Button variant="danger" size="sm" className="me-2" onClick={() => handleWithdrawHelp(requestId,statusHook,delivery_pref)}>
-            Reject Help
-          </Button>
-          <Button variant="info" size="sm" onClick={() => profileModalHook(requestId)}>
-            View Profile
+          <Button variant="danger" size="sm" onClick={() => handleWithdrawRequest(requestId,withdrawHook)}>
+            Withdraw Request
           </Button>
         </>
       );
