@@ -196,9 +196,9 @@ const TimeSelector = ({setTimer}) => {
     );
 };
 
-const MultiSelect = ({deliveryPref, setDeliveryPref}) => {
+const MultiSelect = ({deliveryPref, setDeliveryPref, meetUp, setMeetUpLocation}) => {
     const options = ['Pick up', 'Drop off', 'Meet up'];
-    const [meetUpLocation, setMeetUpLocation] = useState(''); // Changed variable name
+    // const [meetUpLocation, setMeetUpLocation] = useState(''); // Changed variable name
 
     // Handle select logic
     const handleSelect = (option) => {
@@ -229,7 +229,7 @@ const MultiSelect = ({deliveryPref, setDeliveryPref}) => {
                     <Form.Control
                         type="text"
                         placeholder="Enter location"
-                        value={meetUpLocation} // Updated to use meetUpLocation
+                        value={meetUp} // Updated to use meetUpLocation
                         onChange={(e) => setMeetUpLocation(e.target.value)} // Update location state
                     />
                 </Form.Group>
@@ -241,7 +241,7 @@ const MultiSelect = ({deliveryPref, setDeliveryPref}) => {
     );
 };
   
-export const RequestForm= ({data, setDescription, setTimer, deliveryPref, setDeliveryPref, onClick}) => {
+export const RequestForm= ({data, setDescription, setTimer, deliveryPref, setDeliveryPref, setMeetUpLocation, onClick}) => {
 
     const navigate = useNavigate();
     const DirectToHome = () => {
@@ -272,7 +272,7 @@ export const RequestForm= ({data, setDescription, setTimer, deliveryPref, setDel
                 <hr />
                 <Form.Group controlId="formDelivery">
                     <Form.Label>Delivery Preference</Form.Label>
-                    <MultiSelect deliveryPref={deliveryPref} setDeliveryPref={setDeliveryPref}/>
+                    <MultiSelect deliveryPref={deliveryPref} setDeliveryPref={setDeliveryPref} meetUp={data.meet_up_loc} setMeetUpLocation={setMeetUpLocation}/>
                 </Form.Group>
 
                 {/* Accept/Submit Button */}

@@ -30,6 +30,7 @@ const RequestFormPage = () => {
   const [description, setDescription] = useState('');
   const [timer, setTimer] = useState('');
   const [deliveryPref, setDeliveryPref] = useState('');
+  const [meetUpLocation, setMeetUpLocation] = useState('');
 
   const data = {
     description: description,
@@ -40,6 +41,7 @@ const RequestFormPage = () => {
     accept_userid: "",
     location: "",
     post_time: new Date().toISOString(),
+    meet_up_loc: meetUpLocation,
     request_id: newRequestId,
     userid: user ? user.uid : "TESTING",
     username: user ? user.displayName || "Anonymous" : "Anonymous",
@@ -71,6 +73,7 @@ const RequestFormPage = () => {
         setTimer={setTimer} 
         deliveryPref={deliveryPref}
         setDeliveryPref={setDeliveryPref}
+        setMeetUpLocation={setMeetUpLocation}
         onClick={submit}/>
     </div>
   );

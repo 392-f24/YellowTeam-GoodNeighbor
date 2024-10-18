@@ -173,6 +173,12 @@ const Request_Page_List = () => {
                                   ? <span><strong>{user.username}</strong> has accepted your request:</span>
                                   : <span><strong>No one</strong> accepts your request yet</span>}
                               </strong>
+                              {request.meet_up_loc && 
+                              <div className="text-muted">
+                                <i className="bi bi-geo-alt"></i>
+
+                                Meet up location: {request.meet_up_loc}
+                              </div>}
                               <Card.Text className="normal-text">{request.description}</Card.Text>
                             </div>
                             <div className="text-end">
@@ -216,7 +222,12 @@ const Request_Page_List = () => {
 
                               {user.Address}, {user.Apartment}, {user.City}, {user.StateLoc} {user.Zip}
                             </div>
+                            {request.meet_up_loc && 
+                            <div className="text-muted">
+                              <i className="bi bi-geo-alt"></i>
 
+                              Meet up location: {request.meet_up_loc}
+                            </div>}
                             {/* Description section */}
                             <Card.Text className="normal-text">
                               <strong>Description:</strong> {request.description}
