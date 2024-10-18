@@ -182,7 +182,7 @@ const Request_Page_List = () => {
                       <Card key={request.request_id} className="mb-3 shadow-sm">
                         <Card.Body>
                           <div className="d-flex justify-content-between">
-                            <div>
+                            <div className="text-start">
                               <strong className="text-highlight">
                                 { user && user.username
                                   ? <span><strong>{user.username}</strong> has accepted your request:</span>
