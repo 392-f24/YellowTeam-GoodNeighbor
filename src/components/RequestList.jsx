@@ -73,34 +73,38 @@ const RequestList = () => {
                         const state = user ? user.StateLoc : '';
                         const zip = user ? user.Zip : '';
                         const fullAddress = `${address}, ${city}, ${state} ${zip}`;
-                        console.log("Full Address", fullAddress)
-                        const { distance, duration} = DistanceMatrix("1 Infinite Loop, Cupertino, CA");
-                       
-
+                    
                         return (
                             <div key={request.request_id} className="col-12 mb-3">
-                                <Card className="shadow border-0 cursor-pointer hover-effect" onClick={() => handleShow(request)}>
-                                    <Card.Body className="p-0">
-                                        <Card.Header className="text-muted">
-                                            <CountdownTimer request={request}/>
-                                        </Card.Header>
-                                        <div className="p-3">
-                                            <div className="d-flex justify-content-between align-items-center mb-1">
-                                                <Card.Title className="h5 mb-0">{user?.username || "Unknown"}</Card.Title>
-                                                <div className="d-flex align-items-center">
-                                                    <i className="bi bi-star-fill text-warning me-1"></i>
-                                                    <span>{rating}</span>
-                                                </div>
-                                            </div>
-                                            <small className="text-muted mb-2">{request.location || "Unknown location"}</small>
-                                            <Card.Text>{request.description}</Card.Text>
-                                          
-                                        </div>
-                                    </Card.Body>
-                                </Card>
-                                
+                              <Card
+                                className="shadow border-0 cursor-pointer hover-effect"
+                                onClick={() => handleShow(request)}
+                              >
+                                <Card.Body className="p-0">
+                                  <Card.Header className="text-muted">
+                                    <CountdownTimer request={request} />
+                                  </Card.Header>
+                                  <div className="p-3">
+                                    <div className="d-flex justify-content-between align-items-center mb-1">
+                                      <Card.Title className="h5 mb-0">{user?.username || 'Unknown'}</Card.Title>
+                                      <div className="d-flex align-items-center">
+                                        <i className="bi bi-star-fill text-warning me-1"></i>
+                                        <span>{rating}</span>
+                                      </div>
+                                    </div>
+                                    <small className="text-muted mb-2">
+                                      {request.location || 'Unknown location'}
+                                    </small>
+                        
+                                    {/* DistanceMatrix Component */}
+                                    <DistanceMatrix arrival={fullAddress} />
+                        
+                                    <Card.Text>{request.description}</Card.Text>
+                                  </div>
+                                </Card.Body>
+                              </Card>
                             </div>
-                        );
+                          );
                     })}
                 </div>
             </div>

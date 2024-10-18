@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { DropdownButton, Dropdown, Card } from 'react-bootstrap';
 
-const DistanceMatrix = (arrival) => {
+const DistanceMatrix = ({ arrival }) => {
   const [origin, setOrigin] = useState('');
   const [destination, setDestination] = useState(arrival);
   const [distance, setDistance] = useState('');
@@ -14,13 +15,13 @@ const DistanceMatrix = (arrival) => {
           setOrigin(`${latitude},${longitude}`);
         },
         (error) => {
-          console.error("Error getting location:", error);
-          alert("Unable to retrieve your location. Please enable location services.");
+          console.error('Error getting location:', error);
+          alert('Unable to retrieve your location. Please enable location services.');
         }
       );
     } else {
-      console.error("Geolocation is not supported by this browser.");
-      alert("Geolocation is not supported by this browser.");
+      console.error('Geolocation is not supported by this browser.');
+      alert('Geolocation is not supported by this browser.');
     }
   };
 
@@ -31,7 +32,7 @@ const DistanceMatrix = (arrival) => {
       {
         origins: [origin],
         destinations: [destination],
-        travelMode: window.google.maps.TravelMode.DRIVING,
+        travelMode: window.google.maps.TravelMode.WALKING,
         unitSystem: window.google.maps.UnitSystem.METRIC,
         avoidHighways: false,
         avoidTolls: false,
@@ -51,11 +52,24 @@ const DistanceMatrix = (arrival) => {
     );
   };
 
+  useEffect(() => {
     getUserLocation();
-    calculateDistance();
-    console.log('RESUTLS DIST AN DUR', distance, duration)
+  }, []);
 
-  return { distance, duration };
+  useEffect(() => {
+    if (origin && destination) {
+      calculateDistance();
+    }
+  }, [origin, destination]);
+
+  return (
+
+      <Card style={{ width: '18rem' }}>
+          <Card.Text>Distance: {distance || 'Calculating...'}</Card.Text>
+          <Card.Text>Duration: {duration || 'Calculating...'}</Card.Text>
+      </Card>
+
+  );
 };
 
 export default DistanceMatrix;
