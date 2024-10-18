@@ -35,17 +35,10 @@ const Request_Page_List = () => {
     setIsModalOpen(false);            // Close the modal
   };
 
-  const handleCloseRequest = (requestId,acceptUserId, newRating) => {
-    const userToUpdate = users[acceptUserId];  // Get the user data
-    const rateCount = userToUpdate.rate_count || 1;  // Default rate count
-    updateStatus(`requests/${requestId}`, {
-      request_status: 'Closed',  // Mark request as closed
-    });
-    updateStatus(`users/${acceptUserId}`, {
-      rate_score: newRating,           // Update the new rating
-      rate_count: rateCount + 1  // Increment the rate count
-    });
-    console.log(`Closing request ID: ${requestId} and Updated user ${acceptUserId} with new rating: ${newRating}`);
+  const handleCloseRequest = (requestId) => {
+    // Logic to handle request close based on requestId
+    console.log(`Closing request ID: ${requestId}`);
+    // Close the modal after handling the request close
     handleModalClose();
   };
 
@@ -128,6 +121,7 @@ const Request_Page_List = () => {
             <div>
               <h2>Your Requests</h2>
               {userRequests.length > 0 ? (
+
                   userRequests.map((request) => {
                     const user = getUserById(request.accept_userid); // Retrieve the user object
                     
@@ -200,6 +194,7 @@ const Request_Page_List = () => {
                           <div className="d-flex justify-content-center mt-3">
                             {/* Dynamically create buttons for accepted requests */}
                             {buttonCreate(request.request_status === 'Closed' ? request.request_status : 'Your_accept', request.request_id,request.delivery_pref, removeRequest, updateStatus,handleModalOpen)}
+
                           </div>
                         </Card.Body>
                       </Card>
@@ -212,13 +207,20 @@ const Request_Page_List = () => {
               )}
         </div>
       </div>
-      <RateModal 
-        show={isModalOpen} 
-        handleClose={handleModalClose} 
-        requestId={selectedRequestId} 
-        handleSubmit={handleCloseRequest} 
-        requests={requests}    
-        users={users} 
+
+      <RateModal
+        show={isModalOpen}
+        handleClose={handleModalClose}
+        requestId={selectedRequestId}
+        handleCloseRequest={handleCloseRequest}
+        requests={requests}
+        users={users}
+      />
+      <ProfileModal
+        show={isModalOpen}
+        handleClose={handleProfileModalClose}
+        user={selectedUser}
+
       />
     </div>
   );
