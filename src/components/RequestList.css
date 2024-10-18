@@ -3,12 +3,13 @@ h2 {
 }
 
 .request-list-header {
-    position: sticky;  /* Makes the element sticky */
-    top: 0;            /* Sticks it to the top of the viewport */
-    background-color: #D1E7DD; /* Set a background color to prevent content from showing through */
-    z-index: 1000;    /* Ensures it is on top of other content */
-    padding: 10px;         
+    position: sticky;
+    top: 60px;
+    background-color: #D1E7DD;
+    z-index: 1000;
+    padding: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%; 
 }
 
 .hover-effect {
