@@ -156,7 +156,7 @@ const Request_Page_List = () => {
           variant={!showUserRequests ? "primary" : "outline-primary"}
           onClick={() => setShowUserRequests(false)}
         >
-          Requests You've Accepted
+          Requests You Accepted
         </Button>
       </div>
       {showAlert && (
@@ -170,7 +170,9 @@ const Request_Page_List = () => {
         <div className="col-12">
           {showUserRequests ? (
             <div>
-              <h2>Your Requests</h2>
+              <div className="request-page-list-header">
+                <h2>Your Requests</h2>
+              </div>
               {userRequests.length > 0 ? (
 
                   userRequests.map((request) => {
@@ -180,11 +182,11 @@ const Request_Page_List = () => {
                       <Card key={request.request_id} className="mb-3 shadow-sm">
                         <Card.Body>
                           <div className="d-flex justify-content-between">
-                            <div>
+                            <div className="text-start">
                               <strong className="text-highlight">
                                 { user && user.username
                                   ? <span><strong>{user.username}</strong> has accepted your request:</span>
-                                  : <span><strong>No one</strong> accepts your request yet</span>}
+                                  : <span><strong>No one</strong> has accepted your request yet</span>}
                               </strong>
                               {request.meet_up_loc && 
                               <div className="text-muted">
@@ -217,7 +219,9 @@ const Request_Page_List = () => {
             </div>
           ) : (
             <div>
-              <h2>Requests You've Accepted</h2>
+              <div className="request-page-list-header">
+                <h2>Requests You Accepted</h2>
+              </div>
               {acceptedRequests.length > 0 ? (
                 acceptedRequests.map((request) => {
                   const user = getUserById(request.userid);

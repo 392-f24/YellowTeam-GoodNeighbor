@@ -15,13 +15,11 @@ const HomePage = () => {
   };
 
   return (
-    <div className='homepage'>   
-      
+    <div className='homepage-container'>
       <div className='new-request-area'> 
         <h2 className="mb-0 me-2">New Request</h2>
         <TextOnlyForm text={description} setText={setDescription} placeholder={'How can your neighbors help?'}/>
         <GreenButton onClick={DirectToRequestForm} text={'Submit'}/>
-
       </div>
 
       <RequestList />

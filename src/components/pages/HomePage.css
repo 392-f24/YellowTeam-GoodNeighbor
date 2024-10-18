@@ -1,15 +1,11 @@
-.homepage {
-    align-items: stretch;
-    display: flex;
+.homepage-container {
+    padding-top: 60px;
+    padding-bottom: 70px;
     min-height: 100vh;
-    flex-direction: column;
+    box-sizing: border-box;
     justify-content: center;
-    /* padding-top: 20px; */
     background: linear-gradient(180deg, #D1E7DD 25%, #016E3C 100%);
-
-
-    /* background: linear-gradient(180deg, rgba(209, 231, 221, 0.50) 0%, rgba(1, 110, 60, 0.50) 100%), #FFF; */
-}
+  }
 
 h2 {
     padding: 20px;
@@ -18,11 +14,11 @@ h2 {
 
 .new-request-area {
     display: flex;
-    /* margin: 40px; */
     align-items: center;
     flex-direction: column;
     justify-content: center; 
     background-color: #D1E7DD; 
     padding:10px;
 }
+
   
