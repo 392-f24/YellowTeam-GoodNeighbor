@@ -33,23 +33,6 @@ const RequestList = () => {
         setShow(true);
     };
 
-    const handleSort = (criterion) => {
-        const sortedRequests = [...requests].sort((a, b) => {
-            if (criterion === 'timeRemaining') {
-                return a.expected_duration - b.expected_duration;
-            } else if (criterion === 'distance') {
-                return 0;
-            } else if (criterion === 'rating') {
-                const userA = users[a.userid]?.rate_score || 0;
-                const userB = users[b.userid]?.rate_score || 0;
-                return userB - userA;
-            }
-            return 0;
-        });
-        setSortBy(criterion);
-        setRequests(sortedRequests);
-    };
-
     // Remove duplicates from delivery preferences
     const getUniqueDeliveryPrefs = (prefs) => {
         return [...new Set(prefs)];
@@ -72,12 +55,7 @@ const RequestList = () => {
     return (
         <div className="w-100">
             <div className="request-list-header d-flex justify-content-center align-items-center mb-3">
-                <h2 className="mb-0 me-2">Request List</h2>
-                <DropdownButton id="dropdown-basic" variant="secondary" size="sm" title="Sort by">
-                    <Dropdown.Item onClick={() => handleSort('timeRemaining')}>Time Remaining</Dropdown.Item>
-                    <Dropdown.Item onClick={() => handleSort('distance')}>Distance</Dropdown.Item>
-                    <Dropdown.Item onClick={() => handleSort('rating')}>Rating</Dropdown.Item>
-                </DropdownButton>
+                <h2 className="mb-0">Request List</h2>
             </div>
 
             <div className="flex-grow-1 overflow-auto px-3 py-2">

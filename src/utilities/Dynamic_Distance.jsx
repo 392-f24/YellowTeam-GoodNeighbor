@@ -60,8 +60,8 @@ const DistanceMatrix = ({ arrival }) => {
       calculateDistance();
     }
   }, [origin, destination]);
-  console.log('Origin', origin);
-  console.log('Destination', destination);
+  // console.log('Origin', origin);
+  // console.log('Destination', destination);
 
   return (
     
