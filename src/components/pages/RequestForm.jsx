@@ -12,6 +12,13 @@ import { useState, useEffect } from 'react';
 const RequestFormPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
+   useEffect(() => {
+    const { description } = location.state || {};
+    console.log(description)
+    if (description) {
+        setDescription(description);
+    }
+  }, [location.state]);
 
   const [formState] = useFormData(null);
   const [add] = useDbAdd('requests');
