@@ -146,6 +146,7 @@ const Request_Page_List = () => {
             <div>
               <h2>Your Requests</h2>
               {userRequests.length > 0 ? (
+<<<<<<< HEAD
                 userRequests.map((request) => {
                   const user = getUserById(request.accept_userid); // Retrieve the user object
 
@@ -162,6 +163,24 @@ const Request_Page_List = () => {
                             <Card.Text className="normal-text">{request.description}</Card.Text>
                           </div>
                           <div className="text-end">
+=======
+                  userRequests.map((request) => {
+                    const user = getUserById(request.accept_userid); // Retrieve the user object
+                    
+                    return (
+                      <Card key={request.request_id} className="mb-3 shadow-sm">
+                        <Card.Body>
+                          <div className="d-flex justify-content-between">
+                            <div>
+                              <strong className="text-highlight">
+                                {request.accept_status && user
+                                  ? <span><strong>{user.username}</strong> has accepted your request:</span>
+                                  : <span><strong>No one</strong> accepts your request yet</span>}
+                              </strong>
+                              <Card.Text className="normal-text">{request.description}</Card.Text>
+                            </div>
+                            <div className="text-end">
+>>>>>>> parent of ef4e489 (1)
                             <span className="me-2 text-muted">Status:</span>
                             <span className={`badge ${getBadgeClass(request.request_status)} badge-responsive`}>
                               {request.request_status}
@@ -214,6 +233,7 @@ const Request_Page_List = () => {
                               {(request.request_status === 'Pending' || request.request_status === 'Accepted') && ` / ${findDuplicate(request.delivery_pref)}`}
                             </span>
                           </div>
+<<<<<<< HEAD
                         </div>
                         <div className="d-flex justify-content-center mt-3">
                           {/* Dynamically create buttons for accepted requests */}
@@ -225,11 +245,26 @@ const Request_Page_List = () => {
                 })
               ) : (
                 <p>You haven't accepted any requests yet.</p>
+=======
+                          <div className="d-flex justify-content-center mt-3">
+                            {/* Dynamically create buttons for accepted requests */}
+                            {buttonCreate('Your_accept', request.request_id,request.delivery_pref, removeRequest, updateStatus,handleModalOpen)}
+                          </div>
+                        </Card.Body>
+                      </Card>
+                    );
+                  })
+                ) : (
+                  <p>You haven't accepted any requests yet.</p>
+                )}
+                </div>
+>>>>>>> parent of ef4e489 (1)
               )}
             </div>
           )}
         </div>
       </div>
+<<<<<<< HEAD
       <RateModal
         show={isModalOpen}
         handleClose={handleModalClose}
@@ -242,6 +277,15 @@ const Request_Page_List = () => {
         show={isModalOpen}
         handleClose={handleProfileModalClose}
         user={selectedUser}
+=======
+      <RateModal 
+        show={isModalOpen} 
+        handleClose={handleModalClose} 
+        requestId={selectedRequestId} 
+        handleCloseRequest={handleCloseRequest} 
+        requests={requests}    
+        users={users} 
+>>>>>>> parent of ef4e489 (1)
       />
     </div>
   );
