@@ -156,7 +156,7 @@ const Request_Page_List = () => {
           variant={!showUserRequests ? "primary" : "outline-primary"}
           onClick={() => setShowUserRequests(false)}
         >
-          Requests You've Accepted
+          Requests You Accepted
         </Button>
       </div>
       {showAlert && (
@@ -220,7 +220,7 @@ const Request_Page_List = () => {
           ) : (
             <div>
               <div className="request-page-list-header">
-                <h2>Requests You've Accepted</h2>
+                <h2>Requests You Accepted</h2>
               </div>
               {acceptedRequests.length > 0 ? (
                 acceptedRequests.map((request) => {
