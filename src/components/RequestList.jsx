@@ -94,7 +94,6 @@ const RequestList = () => {
                                                 </div>
                                             </div>
                                             <DistanceMatrix arrival={fullAddress} />
-                                            <small className="text-muted mb-2">{request.location || "Unknown location"}</small>
                                             <Card.Text>{request.description}</Card.Text>
                                         </div>
                                     </Card.Body>
