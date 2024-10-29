@@ -1,19 +1,26 @@
-import {describe, expect, test} from 'vitest';
-import {fireEvent, render, screen} from '@testing-library/react';
-import App from './App';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { describe, it, expect, beforeEach } from 'vitest';
+import { MemoryRouter } from 'react-router-dom';
+import HomePage from './components/pages/HomePage';
+import '@testing-library/jest-dom';
+import { useDbData, useAuthState, useDbRemove } from './utilities/firebase';
+import Request_Page_List from './components/Request_Page_List';
+import RequestsPage from './components/pages/RequestsPage';
 
-describe('counter tests', () => {
-    
-  test("Counter should be 0 at the start", () => {
-    render(<App />);
-    expect(screen.getByText('count is: 0')).toBeDefined();
+
+
+describe('Homepage', () => {
+  it('should navigate to the request form when the Submit button is clicked', async () => {
+    render(
+      <MemoryRouter>
+        <HomePage />
+      </MemoryRouter>
+    );
+
+    const submitButton = screen.getByRole('button', { name: /submit/i });
+    fireEvent.click(submitButton);
+
+    expect(screen.getByText(/New Request/i)).toBeInTheDocument();
   });
-
-  test("Counter should increment by one when clicked", async () => {
-    render(<App />);
-    const counter = screen.getByRole('button');
-    fireEvent.click(counter);
-    expect(await screen.getByText('count is: 1')).toBeDefined();
-  });
-
 });
+
