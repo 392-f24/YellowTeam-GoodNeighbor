@@ -1,19 +1,27 @@
-import {describe, expect, test} from 'vitest';
+import { describe, it, expect, vi,  test} from 'vitest';
 import {fireEvent, render, screen} from '@testing-library/react';
+import '@testing-library/jest-dom';  // Import jest-dom matchers
+
+import { BrowserRouter as Router } from 'react-router-dom';
 import App from './App';
+import RequestFormPage from './components/pages/RequestForm';
 
-describe('counter tests', () => {
-    
-  test("Counter should be 0 at the start", () => {
-    render(<App />);
-    expect(screen.getByText('count is: 0')).toBeDefined();
-  });
+describe('RequestFormPage', () => {
+  test('displays Meet Up textbox when Meet up option is selected', () => {
+    render(
+      <Router>
+        <RequestFormPage />
+      </Router>
+    );
+    const pickUpCheckbox = screen.getByTestId('checkbox-Meet up');
+    fireEvent.click(pickUpCheckbox);
+    expect(pickUpCheckbox.checked).toBe(true);
+    screen.getByLabelText('Meet-up Location:');
 
-  test("Counter should increment by one when clicked", async () => {
-    render(<App />);
-    const counter = screen.getByRole('button');
-    fireEvent.click(counter);
-    expect(await screen.getByText('count is: 1')).toBeDefined();
-  });
+    const input = screen.getByPlaceholderText(/Enter location/i)
+    expect(input).toBeInTheDocument();
 
-});
+  })
+  
+  
+})
