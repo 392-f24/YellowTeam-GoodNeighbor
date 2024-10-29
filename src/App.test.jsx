@@ -24,27 +24,27 @@ describe('RequestFormPage', () => {
     expect(input).toBeInTheDocument();
 
   })
+  
+})
 
-  describe('send text from home page to request form', () => {
-    it('should send the text in the textbox to the textbox on the request form', () => {
-      render(
-        <MemoryRouter initialEntries={['/']}>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/requestform" element={<RequestFormPage />} />
-          </Routes>
-        </MemoryRouter>
-      );
-      const input = screen.getByPlaceholderText(/How can your neighbors help?/i);
-      fireEvent.change(input, { target: { value: 'I need a hammer!' } });
+describe('send text from home page to request form', () => {
+  it('should send the text in the textbox to the textbox on the request form', () => {
+    render(
+      <MemoryRouter initialEntries={['/']}>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/requestform" element={<RequestFormPage />} />
+        </Routes>
+      </MemoryRouter>
+    );
+    const input = screen.getByPlaceholderText(/How can your neighbors help?/i);
+    fireEvent.change(input, { target: { value: 'I need a hammer!' } });
 
-      const submitButton = screen.getByText(/Submit/i);
-      fireEvent.click(submitButton);
+    const submitButton = screen.getByText(/Submit/i);
+    fireEvent.click(submitButton);
 
-      expect(screen.getByText(/New Request/i)).toBeInTheDocument();
-      expect(screen.getByLabelText(/Description/i)).toHaveValue('I need a hammer!');
-    });
-    
+    expect(screen.getByText(/New Request/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Description/i)).toHaveValue('I need a hammer!');
   });
   
 })
