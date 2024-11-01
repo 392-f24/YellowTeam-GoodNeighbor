@@ -1,65 +1,48 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent, act } from '@testing-library/react';
-import ProfilePage from './components/pages/ProfilePage';
-import { useAuthState, useDbData, useDbAdd } from './utilities/firebase';
+import ProfilePage from './ProfilePage';
+import { useAuthState, useDbData, useDbAdd } from '../../utilities/firebase';
 
-
-// it('shows request list', () => {
-//   render(<App />);
-//   screen.getByText(/Good Neighbor/);
-// });
-
-vi.mock('./utilities/firebase', () => ({
+vi.mock('../../utilities/firebase', () => ({
   useAuthState: vi.fn(),
   useDbData: vi.fn(),
   useDbAdd: vi.fn(),
-  signOut: vi.fn() 
+  signOut: vi.fn()
 }));
 
-beforeAll(() => {
-  vi.useFakeTimers();
-});
-
-afterAll(() => {
-  vi.useRealTimers();
-});
-
 describe('User name on profile page', () => {
-  it("displays the user's name on the Profile page", () => {
+  beforeEach(() => {
+    useAuthState.mockReturnValue([null]); // Default no user
+    useDbData.mockReturnValue([null, false]); // Default no data
+  });
 
+  it("displays the user's name on the Profile page", () => {
     const mockUser = { uid: 'mockUserId', displayName: 'John Doe' };
     useAuthState.mockReturnValue([mockUser]);
-
     useDbData.mockReturnValue([{ rate_score: 4, rate_count: 10, task_CBU: 3, task_CFU: 5 }, null]);
 
     render(<ProfilePage />);
 
-    const userName = screen.getByText(/John Doe/i);
-    expect(userName).toBeDefined();
+    expect(screen.getByText(/John Doe/i)).toBeInTheDocument();
   });
 });
 
 describe('ProfilePage - New User Profile Creation', () => {
   it("shows 'Create Profile' button for users without profile data and adds user to the mock database on submission", async () => {
-
     const mockUser = { uid: 'newUserId', displayName: 'New User' };
     useAuthState.mockReturnValue([mockUser]);
-    useDbData.mockReturnValue([null, false]); //Simulates no profile data
+    useDbData.mockReturnValue([null, false]); // Simulate no profile data
 
     const mockAddUser = vi.fn();
     useDbAdd.mockReturnValue([mockAddUser, null]);
 
     render(<ProfilePage />);
 
-    act(() => {
-      vi.advanceTimersByTime(5000);
-    });
+    // Check for and click the "Create Profile" button
+    expect(screen.getByText(/Create Profile/i)).toBeInTheDocument();
+    fireEvent.click(screen.getByText(/Create Profile/i));
 
-    const createProfileButton = screen.getByText(/Create Profile/i);
-    expect(createProfileButton).toBeDefined();
-
-    fireEvent.click(createProfileButton);
-
+    // Fill out form fields
     fireEvent.change(screen.getByPlaceholderText(/Enter your full name/i), { target: { value: 'New User' } });
     fireEvent.change(screen.getByPlaceholderText(/Enter your address/i), { target: { value: '123 Main St' } });
     fireEvent.change(screen.getByPlaceholderText(/Apartment, suite, etc./i), { target: { value: 'Apt 4B' } });
@@ -68,9 +51,8 @@ describe('ProfilePage - New User Profile Creation', () => {
     fireEvent.change(screen.getByPlaceholderText(/Zip Code/i), { target: { value: '12345' } });
     fireEvent.change(screen.getByPlaceholderText(/Enter Neighborhood Code/i), { target: { value: 'NEIGH123' } });
 
-    const saveButton = screen.getByText(/Save Profile/i);
-    fireEvent.click(saveButton);
-
+    // Click "Save Profile" and verify the mockAddUser function call
+    fireEvent.click(screen.getByText(/Save Profile/i));
     expect(mockAddUser).toHaveBeenCalledWith(
       {
         username: 'New User',
@@ -92,20 +74,3 @@ describe('ProfilePage - New User Profile Creation', () => {
     );
   });
 });
-
-// describe('counter tests', () => {
-    
-//   test("Counter should be 0 at the start", () => {
-//     render(<App />);
-//     expect(screen.getByText('count is: 0')).toBeDefined();
-//   });
-
-//   test("Counter should increment by one when clicked", async () => {
-//     render(<App />);
-//     const counter = screen.getByRole('button');
-//     fireEvent.click(counter);
-//     expect(await screen.getByText('count is: 1')).toBeDefined();
-//   });
-
-// });
-
