@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Card, Alert } from 'react-bootstrap';
-import './Request_Page_list.css';
+import './Request_Page_List.css';
 import { useDbData, useAuthState, useDbRemove, useDbStatusUpdate } from '../utilities/firebase';
 import { buttonCreate } from './buttons_request';
 import RateModal from './rate_modal';
