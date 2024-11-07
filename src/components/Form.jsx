@@ -221,12 +221,14 @@ const MultiSelect = ({deliveryPref, setDeliveryPref, meetUp, setMeetUpLocation})
                     label={option}
                     checked={deliveryPref.includes(option)}
                     onChange={() => handleSelect(option)} // Handle checkbox change
+                    data-testid={`checkbox-${option}`}
                 />
             ))}
             {deliveryPref.includes('Meet up') && (
                 <Form.Group className="mt-3">
-                    <Form.Label>Meet-up Location:</Form.Label>
+                    <Form.Label htmlFor="meetUpLocation">Meet-up Location:</Form.Label>
                     <Form.Control
+                        id="meetUpLocation"
                         type="text"
                         placeholder="Enter location"
                         value={meetUp} // Updated to use meetUpLocation

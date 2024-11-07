@@ -1,5 +1,5 @@
 import { useAuthState } from './utilities/firebase';
-import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -45,7 +45,7 @@ const App = () => {
 
             <Navigationbar />
           </>
-        )}
+        )}        
       </div>
     </Router>
   );
