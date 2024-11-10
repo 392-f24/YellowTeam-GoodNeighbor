@@ -9,8 +9,7 @@
     "serve": "vite preview",
     "preview": "vite preview",
     "test": "vitest --ui",
-    "coverage": "vitest run --coverage",
-    "em:run": "firebase emulators:start --only hosting"
+    "coverage": "vitest run --coverage"
   },
   "dependencies": {
     "bootstrap": "^5.3.3",
